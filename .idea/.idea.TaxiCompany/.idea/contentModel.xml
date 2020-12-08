@@ -3,7 +3,9 @@
   <component name="ContentModelStore">
     <e p="C:\Users\devio\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
     <e p="C:\Users\devio\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_TaxiCompany.-385042118.00" t="ExcludeRecursive" />
+    <e p="C:\Users\devio\AppData\Roaming\JetBrains\Rider2020.2\scratches" t="IncludeRecursive" />
     <e p="F:\Other\DotNet Courses\TaxiCompany" t="IncludeFlat">
+      <e p=".git\info\exclude" t="IncludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="TaxiCompany" t="IncludeRecursive">
         <e p=".gitignore" t="Include" />
