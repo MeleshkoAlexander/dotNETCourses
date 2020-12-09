@@ -1,6 +1,6 @@
 ﻿namespace TaxiCompany.TaxiCompany
 {
-    public class Class1
+    public class TaxiCompany
     {
     }
 }
