@@ -1,4 +1,6 @@
-﻿namespace TaxiCompany.Auto
+﻿using System;
+
+namespace TaxiCompany.Auto
 {
     public interface IAuto
     {
@@ -6,7 +8,7 @@
         double Consumption { get; }
         double Cost { get; }
         int Year { get; }
-        string StatenNumber { get; }
+        string StateNumber { get; }
         string Vin { get; }
         double MaxSpeed { get; }
     }
