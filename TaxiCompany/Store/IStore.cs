@@ -1,12 +1,12 @@
-﻿using System.Resources;
+﻿using System.Collections.Generic;
+using System.Resources;
 using TaxiCompany.Auto;
 
 namespace TaxiCompany.Store
 {
     public interface IStore
     {
-        void Save(IAuto auto);
-        IAuto Get(int id);
-        void Delete(IAuto auto);
+        void Save(List<IAuto> autoList);
+        void Load(List<IAuto> autoList);
     }
 }

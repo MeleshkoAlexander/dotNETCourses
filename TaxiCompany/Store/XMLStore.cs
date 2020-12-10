@@ -1,22 +1,34 @@
-﻿using TaxiCompany.Auto;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
+using TaxiCompany.Auto;
 
 namespace TaxiCompany.Store
 {
-    public class XMLStore: IStore
+    public class XmlStore: IStore
     {
-        public void Save(IAuto auto)
+        public void Save(List<IAuto> autoList)
         {
-            throw new System.NotImplementedException();
+            var serializer= new XmlSerializer(typeof(List<IAuto>));
+            using (var fs=new FileStream("../../Auto.xml",FileMode.OpenOrCreate))
+            {
+                serializer.Serialize(fs,autoList);
+                fs.Close();
+            }
         }
 
-        public IAuto Get(int id)
+        public void Load(List<IAuto> autoList)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void Delete(IAuto auto)
-        {
-            throw new System.NotImplementedException();
+            var serializer= new XmlSerializer(typeof(List<IAuto>));
+            using (var fs=new FileStream("../../Auto.xml",FileMode.OpenOrCreate))
+            {
+                var autos = (IAuto[]) serializer.Deserialize(fs);
+                foreach (var auto in autos)
+                {
+                    autoList.Add(auto);
+                }
+                fs.Close();
+            }
         }
     }
 }
