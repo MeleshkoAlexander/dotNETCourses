@@ -5,28 +5,25 @@ using TaxiCompany.Auto;
 
 namespace TaxiCompany.Store
 {
-    public class XmlStore: IStore
+    public class XmlStore : IStore
     {
-        public void Save(List<IAuto> autoList)
+        public void Save<TAutoType>(List<TAutoType> autoList) where TAutoType : IAuto
         {
-            var serializer= new XmlSerializer(typeof(List<IAuto>));
-            using (var fs=new FileStream("../../Auto.xml",FileMode.OpenOrCreate))
+            var serializer = new XmlSerializer(typeof(List<TAutoType>));
+            using (var fs = new FileStream("../../Auto.xml", FileMode.OpenOrCreate))
             {
-                serializer.Serialize(fs,autoList);
+                serializer.Serialize(fs, autoList);
                 fs.Close();
             }
         }
 
-        public void Load(List<IAuto> autoList)
+        public void Load<TAutoType>(List<TAutoType> autoList) where TAutoType : IAuto
         {
-            var serializer= new XmlSerializer(typeof(List<IAuto>));
-            using (var fs=new FileStream("../../Auto.xml",FileMode.OpenOrCreate))
+            var serializer = new XmlSerializer(typeof(List<TAutoType>));
+            using (var fs = new FileStream("../../Auto.xml", FileMode.OpenOrCreate))
             {
-                var autos = (IAuto[]) serializer.Deserialize(fs);
-                foreach (var auto in autos)
-                {
-                    autoList.Add(auto);
-                }
+                var autos = (TAutoType[]) serializer.Deserialize(fs);
+                autoList.AddRange(autos);
                 fs.Close();
             }
         }

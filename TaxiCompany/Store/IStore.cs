@@ -6,7 +6,7 @@ namespace TaxiCompany.Store
 {
     public interface IStore
     {
-        void Save(List<IAuto> autoList);
-        void Load(List<IAuto> autoList);
+        void Save<TAutoType>(List<TAutoType> autoList)where TAutoType : IAuto;
+        void Load<TAutoType>(List<TAutoType> autoList) where TAutoType : IAuto;
     }
 }
