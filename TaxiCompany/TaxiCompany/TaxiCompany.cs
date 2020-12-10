@@ -34,5 +34,12 @@ namespace TaxiCompany.TaxiCompany
                 throw new ArgumentException("Remove failed");
             }
         }
+
+        public List<TAutoType> GetCopy()
+        {
+            var newTaxiList = new List<TAutoType>();
+            newTaxiList.AddRange(taxiList);
+            return newTaxiList;
+        }
     }
 }
