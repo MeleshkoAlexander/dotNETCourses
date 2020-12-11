@@ -8,28 +8,33 @@ namespace TaxiCompany.TaxiCompany
 {
     public class TaxiCompany<TAutoType> where TAutoType: IAuto
     {
-        private List<TAutoType> taxiList;
+        private readonly List<TAutoType> _taxiList;
+
+        public TaxiCompany()
+        {
+            this._taxiList = new List<TAutoType>();
+        }
 
         public void Load()
         {
             var xmlStore=new Store.XmlStore();
-            xmlStore.Load(this.taxiList);
+            xmlStore.Load(this._taxiList);
         }
 
         public void Save()
         {
             var xmlStore=new Store.XmlStore();
-            xmlStore.Save(this.taxiList);
+            xmlStore.Save(this._taxiList);
         }
 
         public void Add(TAutoType auto)
         {
-            taxiList.Add(auto);
+            _taxiList.Add(auto);
         }
 
         public void Delete(TAutoType auto)
         {
-            if (!this.taxiList.Remove(auto))
+            if (!this._taxiList.Remove(auto))
             {
                 throw new ArgumentException("Remove failed");
             }
@@ -38,7 +43,7 @@ namespace TaxiCompany.TaxiCompany
         public List<TAutoType> GetCopy()
         {
             var newTaxiList = new List<TAutoType>();
-            newTaxiList.AddRange(taxiList);
+            newTaxiList.AddRange(_taxiList);
             return newTaxiList;
         }
     }

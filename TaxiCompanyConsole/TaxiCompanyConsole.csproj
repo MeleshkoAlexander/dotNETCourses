@@ -38,11 +38,19 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Main\TaxiCompanyConsole.cs" />
+        <Compile Include="src\Program.cs" />
+        <Compile Include="UI\UI.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\TaxiCompany\TaxiCompany.csproj">
+        <Project>{e81c203b-019b-41af-bf85-b4d766fb9342}</Project>
+        <Name>TaxiCompany</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
