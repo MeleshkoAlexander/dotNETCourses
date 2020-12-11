@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using TaxiCompany.Auto;
 using TaxiCompany.TaxiCompany;
 using TaxiCompanyConsole.UI;
 
-namespace TaxiCompanyConsole
+namespace TaxiCompanyConsole.Main
 {
     public class TaxiCompanyConsole
     {
@@ -33,23 +32,43 @@ namespace TaxiCompanyConsole
             Console.Clear();
         }
 
-        public void Show()
+        public void ShowList()
         {
             foreach (var car in _carList)
             {
-                Ui.InputMessage($"Name:{car.Name}");
-                Ui.InputMessage($"Year:{car.Year}");
-                Ui.InputMessage($"Cost:{car.Cost}");
-                Ui.InputMessage($"State number:{car.StateNumber}");
-                Ui.InputMessage($"VIN number:{car.Vin}");
-                Ui.InputMessage($"Max Speed:{car.MaxSpeed}");
-                Ui.InputMessage($"Consumption:{car.Consumption}");
+                Show(car);
             }
+        }
+
+        private static void Show<TAutoType>(TAutoType car) where TAutoType : IAuto
+        {
+            Ui.InputMessage($"Name: {car.Name}");
+            Ui.InputMessage($"Year: {car.Year}");
+            Ui.InputMessage($"Cost: {car.Cost}");
+            Ui.InputMessage($"State number: {car.StateNumber}");
+            Ui.InputMessage($"VIN number: {car.Vin}");
+            Ui.InputMessage($"Max Speed: {car.MaxSpeed}");
+            Ui.InputMessage($"Consumption: {car.Consumption}");
+            Ui.InputMessage(null);
         }
 
         public void Sort()
         {
             TaxiCompanyEconomic.Sort(_carList,(a,b)=>a.Consumption.CompareTo(b.Consumption));
+        }
+
+        public void CompanyCost()
+        {
+             Ui.InputMessage(TaxiCompanyEconomic.GetCompanyCost(_carList).ToString());
+        }
+
+        public void SpeedSelection(double minLimit,double maxLimit)
+        {
+            var carList = TaxiCompanySelection.FindBySpeed(_carList,minLimit,maxLimit);
+            foreach (var car in carList)
+            {
+                Show(car);
+            }
         }
     }
 }

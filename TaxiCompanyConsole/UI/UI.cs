@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace TaxiCompanyConsole.UI
 {
@@ -6,7 +7,7 @@ namespace TaxiCompanyConsole.UI
     {
         public static void Menu()
         {
-            var taxiConsole=new TaxiCompanyConsole();
+            var taxiConsole=new Main.TaxiCompanyConsole();
             while (true)
             {
                 InputMenu();
@@ -16,7 +17,7 @@ namespace TaxiCompanyConsole.UI
                     default:throw new Exception("This number not exist in this menu");
                     case 1:
                     {
-                        taxiConsole.Show();
+                        taxiConsole.ShowList();
                         break;
                     }
                     case 2:
@@ -25,9 +26,18 @@ namespace TaxiCompanyConsole.UI
                         break;
                     }
                     case 3:
+                    {
+                        taxiConsole.CompanyCost();
+                        break;
+                    }
                     case 4:
                     {
                         taxiConsole.Sort();
+                        break;
+                    }
+                    case 5:
+                    {
+                        taxiConsole.SpeedSelection(Convert.ToDouble(OutputMessage("Min: ")),Convert.ToDouble(OutputMessage("Max: ")));
                         break;
                     }
                     case 0:
