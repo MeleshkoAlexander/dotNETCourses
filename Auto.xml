@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ArrayOfCar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Car>
+    <Name>Toyota corolla</Name>
+    <Consumption>7.8</Consumption>
+    <Cost>7789</Cost>
+    <Year>2014</Year>
+    <Vin>1111</Vin>
+	<StateNumber>r543bn</StateNumber>
+    <MaxSpeed>150</MaxSpeed>
+  </Car>
+  <Car>
+    <Name>Volkswagen Polo</Name>
+    <Consumption>6.9</Consumption>
+    <Cost>9900</Cost>
+    <Year>2017</Year>
+	<StateNumber>r543bn</StateNumber>
+    <Vin>1123</Vin>
+    <MaxSpeed>180</MaxSpeed>
+  </Car>
+  <Car>
+    <Name>Kia Rio</Name>
+    <Consumption>9.2</Consumption>
+    <Cost>12000</Cost>
+    <Year>2020</Year>
+    <StateNumber>r543bn</StateNumber>
+    <Vin>1154</Vin>
+    <MaxSpeed>200</MaxSpeed>
+  </Car>
+</ArrayOfCar>
