@@ -1,11 +1,11 @@
 ﻿using System.Collections;
-using TextModel.Model.Text;
+using TextModel.Model.Members;
 
 namespace TextModel.Interfaces
 {
     public interface IWord: ISentenceItem,IEnumerable
     {
         Symbol this[int index] { get; }
-        int length { get; }
+        int Length { get; }
     }
 }

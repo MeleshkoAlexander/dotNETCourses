@@ -1,4 +1,4 @@
-﻿using TextModel.Model.Text;
+﻿using TextModel.Model.Members;
 
 namespace TextModel.Interfaces
 {

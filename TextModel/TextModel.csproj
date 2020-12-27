@@ -33,11 +33,14 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="System" />
+        <Reference Include="System.Configuration" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="FileService\FileService.cs" />
+        <Compile Include="Interfaces\IFileService.cs" />
         <Compile Include="Interfaces\IPunctuation.cs" />
         <Compile Include="Interfaces\ISentence.cs" />
         <Compile Include="Interfaces\ISentenceItem.cs" />
@@ -48,15 +51,13 @@
         <Compile Include="Model\Separators\LargeSentenceSeparators.cs" />
         <Compile Include="Model\Separators\SentenceSeparators.cs" />
         <Compile Include="Model\Separators\WordSeparators.cs" />
-        <Compile Include="Model\Text\Punctuation.cs" />
-        <Compile Include="Model\Text\Sentence.cs" />
-        <Compile Include="Model\Text\Symbol.cs" />
-        <Compile Include="Model\Text\Text.cs" />
-        <Compile Include="Model\Text\Word.cs" />
+        <Compile Include="Model\Members\Punctuation.cs" />
+        <Compile Include="Model\Members\Sentence.cs" />
+        <Compile Include="Model\Members\Symbol.cs" />
+        <Compile Include="Model\Members\Text.cs" />
+        <Compile Include="Model\Members\Word.cs" />
+        <Compile Include="Parser\Parser.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Parser" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,13 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 
-namespace TaxiCompanyConsole.UI
+namespace ConsoleProject.TaxiCompany
 {
-    public class Ui
+    public static class Ui
     {
         public static void Menu()
         {
-            var taxiConsole=new Main.TaxiCompanyConsole();
+            var taxiConsole=new TaxiCompanyConsole();
             while (true)
             {
                 InputMenu();

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using TaxiCompany.Auto;
 using TaxiCompany.TaxiCompany;
-using TaxiCompanyConsole.UI;
 
-namespace TaxiCompanyConsole.Main
+namespace ConsoleProject.TaxiCompany
 {
     public class TaxiCompanyConsole
     {
@@ -19,13 +18,13 @@ namespace TaxiCompanyConsole.Main
 
         public void Create()
         {
-            var car = new Car { Name = UI.Ui.OutputMessage("Name"),
+            var car = new Car { Name = Ui.OutputMessage("Name"),
                 Consumption = Convert.ToDouble(Ui.OutputMessage("Consumption")),
-                Cost = Convert.ToDouble(UI.Ui.OutputMessage("Cost")),
-                Year = Convert.ToInt32(UI.Ui.OutputMessage("Year")),
-                StateNumber =UI.Ui.OutputMessage("State number"),
-                Vin = UI.Ui.OutputMessage("Vin number"),
-                MaxSpeed = Convert.ToDouble(UI.Ui.OutputMessage("Max Speed"))
+                Cost = Convert.ToDouble(Ui.OutputMessage("Cost")),
+                Year = Convert.ToInt32(Ui.OutputMessage("Year")),
+                StateNumber =Ui.OutputMessage("State number"),
+                Vin = Ui.OutputMessage("Vin number"),
+                MaxSpeed = Convert.ToDouble(Ui.OutputMessage("Max Speed"))
             };
             _taxiCarCompany.Add(car);
             _taxiCarCompany.Save();

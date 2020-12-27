@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiCompany", "TaxiCompany\TaxiCompany.csproj", "{E81C203B-019B-41AF-BF85-B4D766FB9342}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiCompanyConsole", "TaxiCompanyConsole\TaxiCompanyConsole.csproj", "{EF95D316-5D8D-4C20-A42F-0B59372AC9AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleProject", "ConsoleProject\ConsoleProject.csproj", "{EF95D316-5D8D-4C20-A42F-0B59372AC9AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextModel", "TextModel\TextModel.csproj", "{0F9ADE8D-35CD-4F5E-8381-9F5C1CC77B3A}"
 EndProject

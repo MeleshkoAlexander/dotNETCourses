@@ -1,14 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using TextModel.Interfaces;
 
-namespace TextModel.Model.Text
+namespace TextModel.Model.Members
 {
-    public class Word: IWord
+    public class Word: IWord,ICloneable
     {
-        private readonly Symbol[] _symbols;
+        private Symbol[] _symbols;
 
         public string Chars
         {
@@ -36,6 +36,10 @@ namespace TextModel.Model.Text
 
         public Symbol this[int index] => _symbols[index];
 
-        public int length => _symbols.Length;
+        public int Length => _symbols.Length;
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

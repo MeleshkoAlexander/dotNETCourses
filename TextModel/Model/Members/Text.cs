@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using TextModel.Interfaces;
 
-namespace TextModel.Model.Text
+namespace TextModel.Model.Members
 {
-    public class Text: IText
+    public class Text: IText,ICloneable
     {
         public ICollection<ISentence> Sentences { get; }
 
@@ -20,6 +20,11 @@ namespace TextModel.Model.Text
         public ICollection<ISentence> GetSentences()
         {
             return Sentences;
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

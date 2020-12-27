@@ -5,8 +5,8 @@ namespace TextModel.Interfaces
 {
     public interface ISentence
     {
-        ICollection<ISentenceItem> Items { get; }
+        IList<ISentenceItem> Items { get; }
         void Add(ISentenceItem item);
-        ICollection<ISentenceItem> GetSentenceItems();
+        IList<ISentenceItem> GetSentenceItems();
     }
 }

@@ -9,7 +9,7 @@ namespace TextModel.Model.Separators
 
         public WordSeparators()
         {
-            separators= new[] { ",", "-", ";", "'", ":", "\"" };
+            separators= new[] { ",", "-", ";", ":", "\"" };
         }
     }
 }
