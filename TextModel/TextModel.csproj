@@ -45,6 +45,8 @@
         <Compile Include="Interfaces\ISymbol.cs" />
         <Compile Include="Interfaces\IText.cs" />
         <Compile Include="Interfaces\IWord.cs" />
+        <Compile Include="Model\Separators\LargeSentenceSeparators.cs" />
+        <Compile Include="Model\Separators\SentenceSeparators.cs" />
         <Compile Include="Model\Separators\WordSeparators.cs" />
         <Compile Include="Model\Text\Punctuation.cs" />
         <Compile Include="Model\Text\Sentence.cs" />
