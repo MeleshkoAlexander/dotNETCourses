@@ -8,52 +8,39 @@ using TextModel.Parser;
 
 namespace TextProcessing.TextProcessing
 {
-    public static class TextProcessing
+    public class TextProcessing
     {
         public delegate int SortBy(ISentence a, ISentence b);
 
-        public static void Sort(IText text, SortBy sortBy)
+        public void Sort(IText text, SortBy sortBy)
         {
-            (text.Sentences as List<ISentence>)?.Sort((a, b) => sortBy(a, b));
+            text.Sentences.Sort(((a,b)=>sortBy(a,b)));
         }
 
-        public static IEnumerable<IWord> FindInQuestion(IText text, int length)
+        public IEnumerable<IWord> FindInQuestion(IText text, int length)
         {
-            var list = new List<IWord>();
-            var isHave = false;
-            foreach (var sentence in text.Sentences)
+            var words = new List<Word>();
+            foreach (var item in text.Sentences.
+                Where(sentence => sentence.Items[sentence.Items.Count - 1].Chars == "?")
+                .SelectMany(sentence => sentence.Items))
             {
-                if (sentence.Items[sentence.Items.Count - 1].Chars != "?") continue;
-                foreach (var item in sentence.Items)
-                {
-                    if (item.Chars.Length != length || !(item is Word word)) continue;
-                    if (list.Any())
-                    {
-                        var count = list.Count;
-                        for (var i = 0; i < count; i++)
-                        {
-                            if (list[i].Chars != item.Chars) continue;
-                            isHave = true;
-                            break;
-                        }
-
-                        if (!isHave) list.Add(word);
-                        isHave = false;
-                    }
-                    else
-                    {
-                        list.Add(word);
-                    }
-                }
+                if(item.GetType()!=typeof(Word)) continue;
+                if(item.Chars.Length != length) continue;
+                if(AlredyAdded(words,item)) continue;
+                words.Add((Word)item);
             }
 
-            return list;
+            return words;
         }
 
-        public static IText DeleteConsonants(IText text, int length)
+        private bool AlredyAdded(IEnumerable<ISentenceItem> words,ISentenceItem value)
         {
-            var newText = text;
-            var buffer = new Sentence();
+            return words.Any(word => word == value);
+        }
+        
+
+        public IText DeleteConsonants(IText text, int length)
+        {
             var consonants = new Dictionary<string, string>
             {
                 {"B", "b"}, {"C", "c"}, {"D", "d"}, {"F", "f"}, {"G", "g"}, {"H", "h"}, {"J", "j"}, {"K", "k"},
@@ -62,37 +49,37 @@ namespace TextProcessing.TextProcessing
                 {"X", "x"}, {"Y", "y"}, {"Z", "z"}
             };
 
-            foreach (var sentence in newText.Sentences)
+            foreach (var sentence in text.Sentences)
             {
                 for (var i = 0; i < sentence.Items.Count; i++)
                 {
-                    if (!(sentence.Items[i] is Word)) continue;
+                    var word = sentence.Items[i];
+                    if (word.GetType()!=typeof(Word)) continue;
                     if (consonants.Any(s =>
-                        (sentence.Items[i].Chars.StartsWith(s.Key) || sentence.Items[i].Chars.StartsWith(s.Value))
-                        && sentence.Items[i].Chars.Length == length))
+                        (word.Chars.StartsWith(s.Key) || word.Chars.StartsWith(s.Value))
+                        && word.Chars.Length == length))
                     {
-                        sentence.Items.Remove(sentence.Items[i]);
+                        sentence.Items.Remove(word);
                     }
                 }
             }
 
-            return newText;
+            return text;
         }
 
-        public static ISentence ReplaceWordOnSubstring(ISentence sentence, int length, string subString)
+        public ISentence ReplaceWordOnSubstring(ISentence sentence, int length, string subString)
         {
-            var newSentence = sentence;
-            var count = newSentence.Items.Count;
+            var count = sentence.Items.Count;
             for(var i=0;i<count;i++)
             {
-                if (newSentence.Items[i].Chars.Length != length) continue;
-                var index = newSentence.Items.IndexOf(newSentence.Items[i]);
-                newSentence.Items.RemoveAt(index);
+                if (sentence.Items[i].Chars.Length != length) continue;
+                var index = sentence.Items.IndexOf(sentence.Items[i]);
+                sentence.Items.RemoveAt(index);
                 var word = new Word(subString);
-                newSentence.Items.Insert(index, word);
+                sentence.Items.Insert(index, word);
             }
 
-            return newSentence;
+            return sentence;
         }
     }
 }

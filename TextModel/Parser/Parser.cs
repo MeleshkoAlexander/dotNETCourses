@@ -11,7 +11,7 @@ namespace TextModel.Parser
 {
     public class Parser
     {
-        private readonly IText _text = new Text();
+        private readonly Text _text = new Text();
         private readonly IFileService _fileService = new FileService.FileService();
         private readonly ISeparator _wordSeparator = new WordSeparators();
         private readonly ISeparator _sentenceSeparator = new SentenceSeparators();
@@ -57,7 +57,7 @@ namespace TextModel.Parser
 
         private bool IsSentenceSeparator(string buffer,ref Sentence sentence, string symbol, TextReader streamReader)
         {
-            foreach (var sentenceSeparator in _sentenceSeparator.separators)
+            foreach (var sentenceSeparator in _sentenceSeparator.Separators)
             {
                 if (sentenceSeparator != symbol.ToString()) continue;
                 if (streamReader.Peek() == '!' || streamReader.Peek() == '?')
@@ -77,7 +77,7 @@ namespace TextModel.Parser
                 {
                     NewWord(buffer, sentence);
                     NewPunctuation(symbol.ToString(), sentence);
-                    _text.Add(sentence);
+                    _text.Sentences.Add(sentence);
                     sentence = new Sentence();
                     if (streamReader.Peek() > 0 && streamReader.Peek() == ' ') streamReader.Read();
                     return true;
@@ -89,7 +89,7 @@ namespace TextModel.Parser
 
         private bool IsWordSeparator(string buffer, ISentence sentence, string symbol)
         {
-            if (_wordSeparator.separators.All(wordSeparator => wordSeparator != symbol)) return false;
+            if (_wordSeparator.Separators.All(wordSeparator => wordSeparator != symbol)) return false;
             NewWord(buffer, sentence);
             NewPunctuation(symbol, sentence);
             return true;
@@ -99,18 +99,18 @@ namespace TextModel.Parser
         private static void NewWord(string buffer, ISentence sentence)
         {
             var word = new Word(buffer);
-            sentence.Add(word);
+            sentence.Items.Add(word);
         }
 
         private static void NewPunctuation(string symbol, ISentence sentence)
         {
             var punctuation = new Punctuation(symbol.ToString());
-            sentence.Add(punctuation);
+            sentence.Items.Add(punctuation);
         }
 
-        public IText GetTextCopy()
+        public Text GetTextCopy()
         {
-            return (Text) (_text as Text)?.Clone();
+            return (Text) _text.CloneText();
         }
     }
 }

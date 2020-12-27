@@ -6,25 +6,20 @@ namespace TextModel.Model.Members
 {
     public class Text: IText,ICloneable
     {
-        public IList<ISentence> Sentences { get; }
+        public List<ISentence> Sentences { get; }
 
         public Text()
         {
             Sentences = new List<ISentence>();
         }
-        public void Add(ISentence sentence)
+        public Text CloneText()
         {
-            Sentences.Add(sentence);
-        }
-
-        public IList<ISentence> GetSentences()
-        {
-            return Sentences;
+            return (Text)this.MemberwiseClone();
         }
 
         public object Clone()
         {
-            return this.MemberwiseClone();
+            return this.CloneText();
         }
     }
 }

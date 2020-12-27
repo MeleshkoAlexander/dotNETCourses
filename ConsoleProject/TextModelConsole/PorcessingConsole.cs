@@ -10,9 +10,11 @@ namespace ConsoleProject.TextModelConsole
         private IText _text;
         private const string OpenPath = "../../../TextRead.txt";
         private const string ClosePath = "../../../TextResult.txt";
+        private readonly TextProcessing.TextProcessing.TextProcessing _textWorke;
 
         public ProcessingConsole()
         {
+            _textWorke = new TextProcessing.TextProcessing.TextProcessing();
             var parser = new Parser();
             parser.Parse(OpenPath);
             _text = parser.GetTextCopy();
@@ -35,12 +37,12 @@ namespace ConsoleProject.TextModelConsole
 
         public void Sort()
         {
-            TextProcessing.TextProcessing.TextProcessing.Sort(_text,(a,b)=>a.Items.Count.CompareTo(b.Items.Count));
+            _textWorke.Sort(_text,(a,b)=>a.Items.Count.CompareTo(b.Items.Count));
         }
 
         public void Find(int length)
         {
-            var list=TextProcessing.TextProcessing.TextProcessing.FindInQuestion(_text,length);
+            var list=_textWorke.FindInQuestion(_text,length);
             var enumerable = list.ToList();
             if (!enumerable.Any())
             {
@@ -55,12 +57,12 @@ namespace ConsoleProject.TextModelConsole
 
         public void Delete(int length)
         {
-            _text=TextProcessing.TextProcessing.TextProcessing.DeleteConsonants(_text,length);
+            _text=_textWorke.DeleteConsonants(_text,length);
         }
 
         public void Replace(int index, int length, string subString)
         {
-           _text.Sentences[index] = TextProcessing.TextProcessing.TextProcessing.ReplaceWordOnSubstring(_text.Sentences[index], length, subString);
+           _text.Sentences[index] = _textWorke.ReplaceWordOnSubstring(_text.Sentences[index], length, subString);
         }
 
         public void Save()

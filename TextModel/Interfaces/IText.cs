@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace TextModel.Interfaces
 {
     public interface IText
     {
-        IList<ISentence> Sentences { get; }
-        void Add(ISentence sentence);
-        IList<ISentence> GetSentences();
-
+        List<ISentence> Sentences { get; }
     }
 }
