@@ -6,6 +6,5 @@ namespace TextModel.Interfaces
     public interface ISentence
     {
         IList<ISentenceItem> Items { get; }
-        void Add(ISentenceItem item);
     }
 }

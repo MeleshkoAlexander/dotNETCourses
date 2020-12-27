@@ -1,4 +1,6 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
+using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using TextModel.Interfaces;
@@ -9,7 +11,7 @@ namespace TextModel.Parser
 {
     public class Parser
     {
-        private readonly IText _text = new Text();
+        private readonly Text _text = new Text();
         private readonly IFileService _fileService = new FileService.FileService();
         private readonly ISeparator _wordSeparator = new WordSeparators();
         private readonly ISeparator _sentenceSeparator = new SentenceSeparators();
@@ -18,58 +20,18 @@ namespace TextModel.Parser
         {
             var buffer = "";
             var sentence = new Sentence();
-            bool isAdded = false;
             using (var streamReader = _fileService.GetStreamReader(path))
             {
                 while (streamReader.Peek() > 0)
                 {
                     var symbol = (char) streamReader.Read();
-                    isAdded = false;
                     if (symbol == '\n') symbol = (char) streamReader.Read();
                     if (symbol != ' ' && symbol != '\t')
                     {
-                        foreach (var wordSeparator in _wordSeparator.separators)
-                        {
-                            if (wordSeparator != symbol.ToString()) continue;
-                            NewWord(buffer, sentence);
-                            NewPunctuation(symbol.ToString(), sentence);
-                            buffer = "";
-                            isAdded = true;
-                            break;
-                        }
-
-                        foreach (var sentenceSeparator in _sentenceSeparator.separators)
-                        {
-                            if (sentenceSeparator == symbol.ToString())
-                            {
-                                if (streamReader.Peek() == '!' || streamReader.Peek() == '?')
-                                {
-                                    var newBuffer = symbol.ToString() + streamReader.Read().ToString();
-                                    NewPunctuation(newBuffer, sentence);
-                                    break;
-                                }
-                                else if (streamReader.Peek() == '.')
-                                {
-                                    var newBuffer = symbol.ToString() + streamReader.Read().ToString() +
-                                                    streamReader.Read().ToString();
-                                    NewPunctuation(newBuffer, sentence);
-                                    break;
-                                }
-                                else
-                                {
-                                    NewWord(buffer, sentence);
-                                    NewPunctuation(symbol.ToString(), sentence);
-                                    _text.Add(sentence);
-                                    sentence = new Sentence();
-                                    if (streamReader.Peek() > 0&& streamReader.Peek()==' ') streamReader.Read();
-                                    buffer = "";
-                                    isAdded = true;
-                                    break;
-                                }
-                            }
-                        }
-
+                        var isAdded = IsWordSeparator(buffer, sentence, symbol.ToString());
+                        if (!isAdded) isAdded = IsSentenceSeparator(buffer, ref sentence, symbol.ToString(), streamReader);
                         if (!isAdded) buffer += symbol;
+                        else buffer = "";
                     }
                     else
                     {
@@ -93,21 +55,62 @@ namespace TextModel.Parser
             }
         }
 
+        private bool IsSentenceSeparator(string buffer,ref Sentence sentence, string symbol, TextReader streamReader)
+        {
+            foreach (var sentenceSeparator in _sentenceSeparator.Separators)
+            {
+                if (sentenceSeparator != symbol.ToString()) continue;
+                if (streamReader.Peek() == '!' || streamReader.Peek() == '?')
+                {
+                    var newBuffer = symbol.ToString() + streamReader.Read().ToString();
+                    NewPunctuation(newBuffer, sentence);
+                    return true;
+                }
+                else if (streamReader.Peek() == '.')
+                {
+                    var newBuffer = symbol.ToString() + streamReader.Read().ToString() +
+                                    streamReader.Read().ToString();
+                    NewPunctuation(newBuffer, sentence);
+                    return true;
+                }
+                else
+                {
+                    NewWord(buffer, sentence);
+                    NewPunctuation(symbol.ToString(), sentence);
+                    _text.Sentences.Add(sentence);
+                    sentence = new Sentence();
+                    if (streamReader.Peek() > 0 && streamReader.Peek() == ' ') streamReader.Read();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsWordSeparator(string buffer, ISentence sentence, string symbol)
+        {
+            if (_wordSeparator.Separators.All(wordSeparator => wordSeparator != symbol)) return false;
+            NewWord(buffer, sentence);
+            NewPunctuation(symbol, sentence);
+            return true;
+        }
+
+
         private static void NewWord(string buffer, ISentence sentence)
         {
             var word = new Word(buffer);
-            sentence.Add(word);
+            sentence.Items.Add(word);
         }
 
         private static void NewPunctuation(string symbol, ISentence sentence)
         {
             var punctuation = new Punctuation(symbol.ToString());
-            sentence.Add(punctuation);
+            sentence.Items.Add(punctuation);
         }
 
-        public IText GetTextCopy()
+        public Text GetTextCopy()
         {
-            return (Text) (_text as Text)?.Clone();
+            return (Text) _text.CloneText();
         }
     }
 }

@@ -4,11 +4,11 @@ namespace TextModel.Model.Separators
 {
     public class SentenceSeparators: ISeparator
     {
-        public string[] separators { get; }
+        public string[] Separators { get; }
 
         public SentenceSeparators()
         {
-            separators = new[] {".", "!", "?"};
+            Separators = new[] {".", "!", "?"};
         }
     }
 }

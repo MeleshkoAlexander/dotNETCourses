@@ -14,7 +14,7 @@ namespace TextModel.Model.Members
 
         public Symbol(char value)
         {
-            Chars = string.Format($"{value}");
+            Chars = value.ToString();
         }
 
         public object Clone()

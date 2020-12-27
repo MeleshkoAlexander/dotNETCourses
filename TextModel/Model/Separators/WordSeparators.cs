@@ -5,11 +5,11 @@ namespace TextModel.Model.Separators
 {
     public class WordSeparators: ISeparator
     {
-        public string[] separators { get; }
+        public string[] Separators { get; }
 
         public WordSeparators()
         {
-            separators= new[] { ",", "-", ";", ":", "\"" };
+            Separators= new[] { ",", "-", ";", ":", "\"" };
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 
 namespace ConsoleProject
 {
-    public class IOC
+    public static class IOC
     {
         public static void InputMessage(string mes)
         {
