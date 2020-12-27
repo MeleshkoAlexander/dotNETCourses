@@ -1,9 +1,7 @@
-﻿
+﻿using System;
+using ConsoleProject.TextModelConsole;
 
-using System;
-using TaxiCompanyConsole.UI;
-
-namespace TaxiCompanyConsole
+namespace ConsoleProject
 {
     internal static class Program
     {

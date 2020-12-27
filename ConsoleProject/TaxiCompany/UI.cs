@@ -1,17 +1,16 @@
 ﻿using System;
-using System.ComponentModel;
 
-namespace TaxiCompanyConsole.UI
+namespace ConsoleProject.TaxiCompany
 {
-    public class Ui
+    public static class Ui
     {
         public static void Menu()
         {
-            var taxiConsole=new Main.TaxiCompanyConsole();
+            var taxiConsole=new TaxiCompanyConsole();
             while (true)
             {
                 InputMenu();
-                var choose = Convert.ToInt32(OutputMessage(">>"));
+                var choose = Convert.ToInt32(IOC.OutputMessage(">>"));
                 switch (choose)
                 {
                     default:throw new Exception("This number not exist in this menu");
@@ -37,7 +36,7 @@ namespace TaxiCompanyConsole.UI
                     }
                     case 5:
                     {
-                        taxiConsole.SpeedSelection(Convert.ToDouble(OutputMessage("Min: ")),Convert.ToDouble(OutputMessage("Max: ")));
+                        taxiConsole.SpeedSelection(Convert.ToDouble(IOC.OutputMessage("Min: ")),Convert.ToDouble(IOC.OutputMessage("Max: ")));
                         break;
                     }
                     case 0:
@@ -52,22 +51,12 @@ namespace TaxiCompanyConsole.UI
 
         private static void InputMenu()
         {
-            InputMessage("1.Show");
-            InputMessage("2.Create ");
-            InputMessage("3.Company cost");
-            InputMessage("4.Sort by Consumption");
-            InputMessage("5.Find by speed");
-            InputMessage("0. Exit");
-        }
-        public static void InputMessage(string mes)
-        {
-            Console.WriteLine(mes);
-        }
-
-        public static string OutputMessage(string mes = null)
-        {
-            Console.WriteLine(mes);
-            return Console.ReadLine();
+            IOC.InputMessage("1.Show");
+            IOC.InputMessage("2.Create ");
+            IOC.InputMessage("3.Company cost");
+            IOC.InputMessage("4.Sort by Consumption");
+            IOC.InputMessage("5.Find by speed");
+            IOC.InputMessage("0. Exit");
         }
     }
 }
