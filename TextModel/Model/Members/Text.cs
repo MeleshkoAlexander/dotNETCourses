@@ -6,7 +6,7 @@ namespace TextModel.Model.Members
 {
     public class Text: IText,ICloneable
     {
-        public ICollection<ISentence> Sentences { get; }
+        public IList<ISentence> Sentences { get; }
 
         public Text()
         {
@@ -17,7 +17,7 @@ namespace TextModel.Model.Members
             Sentences.Add(sentence);
         }
 
-        public ICollection<ISentence> GetSentences()
+        public IList<ISentence> GetSentences()
         {
             return Sentences;
         }

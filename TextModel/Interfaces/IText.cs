@@ -5,9 +5,9 @@ namespace TextModel.Interfaces
 {
     public interface IText
     {
-        ICollection<ISentence> Sentences { get; }
+        IList<ISentence> Sentences { get; }
         void Add(ISentence sentence);
-        ICollection<ISentence> GetSentences();
+        IList<ISentence> GetSentences();
 
     }
 }

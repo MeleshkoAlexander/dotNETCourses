@@ -5,6 +5,6 @@ namespace TextModel.Interfaces
     public interface IFileService
     {
         StreamReader GetStreamReader(string openPath);
-        void Save(IText text);
+        void Save(IText text,string closePath);
     }
 }

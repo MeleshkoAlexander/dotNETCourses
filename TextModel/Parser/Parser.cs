@@ -13,17 +13,19 @@ namespace TextModel.Parser
         private readonly IFileService _fileService = new FileService.FileService();
         private readonly ISeparator _wordSeparator = new WordSeparators();
         private readonly ISeparator _sentenceSeparator = new SentenceSeparators();
-        private readonly ISeparator _largeSentenceSeparators = new LargeSentenceSeparators();
 
         public void Parse(string path)
         {
             var buffer = "";
             var sentence = new Sentence();
+            bool isAdded = false;
             using (var streamReader = _fileService.GetStreamReader(path))
             {
                 while (streamReader.Peek() > 0)
                 {
                     var symbol = (char) streamReader.Read();
+                    isAdded = false;
+                    if (symbol == '\n') symbol = (char) streamReader.Read();
                     if (symbol != ' ' && symbol != '\t')
                     {
                         foreach (var wordSeparator in _wordSeparator.separators)
@@ -32,6 +34,7 @@ namespace TextModel.Parser
                             NewWord(buffer, sentence);
                             NewPunctuation(symbol.ToString(), sentence);
                             buffer = "";
+                            isAdded = true;
                             break;
                         }
 
@@ -58,19 +61,21 @@ namespace TextModel.Parser
                                     NewPunctuation(symbol.ToString(), sentence);
                                     _text.Add(sentence);
                                     sentence = new Sentence();
-                                    if (streamReader.Peek() > 0) symbol=(char) streamReader.Read();
+                                    if (streamReader.Peek() > 0&& streamReader.Peek()==' ') streamReader.Read();
                                     buffer = "";
+                                    isAdded = true;
                                     break;
                                 }
                             }
                         }
-                        if(symbol!=' ')buffer += symbol;
+
+                        if (!isAdded) buffer += symbol;
                     }
                     else
                     {
                         if (symbol == '\t')
                         {
-                            NewWord(buffer,sentence);
+                            NewWord(buffer, sentence);
                             buffer = "";
                         }
                         else
@@ -103,6 +108,11 @@ namespace TextModel.Parser
         public IText GetTextCopy()
         {
             return (Text) (_text as Text)?.Clone();
+        }
+
+        public void SaveAsTxt(string path)
+        {
+            _fileService.Save(_text, path);
         }
     }
 }

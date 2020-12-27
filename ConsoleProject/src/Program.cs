@@ -1,5 +1,5 @@
 ﻿using System;
-using ConsoleProject.TextProcessing;
+using ConsoleProject.TextModelConsole;
 
 namespace ConsoleProject
 {

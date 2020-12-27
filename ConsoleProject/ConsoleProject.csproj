@@ -43,7 +43,7 @@
         <Compile Include="src\Program.cs" />
         <Compile Include="TaxiCompany\TaxiCompanyConsole.cs" />
         <Compile Include="TaxiCompany\UI.cs" />
-        <Compile Include="TextProcessing\UI.cs" />
+        <Compile Include="TextModelConsole\UI.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />

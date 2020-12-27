@@ -14,9 +14,23 @@ namespace TextModel.FileService
             return reader;
         }
 
-        public void Save(IText text)
+        public void Save(IText text,string closePath)
         {
-            throw new System.NotImplementedException();
+            var writing = "";
+            foreach (var sentence in text.Sentences)
+            {
+                foreach (var item in sentence.Items)
+                {
+                    writing += item.Chars;
+                    writing += ' ';
+                }
+
+                writing += "\n";
+            }
+            using (var streamWriter = new StreamWriter(closePath))
+            {
+                streamWriter.WriteLine(writing);
+            }
         }
     }
 }

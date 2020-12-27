@@ -4,11 +4,11 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{0F9ADE8D-35CD-4F5E-8381-9F5C1CC77B3A}</ProjectGuid>
+        <ProjectGuid>{6D86A5DD-1ED0-412D-8757-28DB344EE286}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>TextModel</RootNamespace>
-        <AssemblyName>TextModel</AssemblyName>
+        <RootNamespace>TextProcessing</RootNamespace>
+        <AssemblyName>TextProcessing</AssemblyName>
         <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
@@ -33,30 +33,19 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="System" />
-        <Reference Include="System.Configuration" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="FileService\FileService.cs" />
-        <Compile Include="Interfaces\IFileService.cs" />
-        <Compile Include="Interfaces\IPunctuation.cs" />
-        <Compile Include="Interfaces\ISentence.cs" />
-        <Compile Include="Interfaces\ISentenceItem.cs" />
-        <Compile Include="Interfaces\ISeparator.cs" />
-        <Compile Include="Interfaces\ISymbol.cs" />
-        <Compile Include="Interfaces\IText.cs" />
-        <Compile Include="Interfaces\IWord.cs" />
-        <Compile Include="Model\Separators\SentenceSeparators.cs" />
-        <Compile Include="Model\Separators\WordSeparators.cs" />
-        <Compile Include="Model\Members\Punctuation.cs" />
-        <Compile Include="Model\Members\Sentence.cs" />
-        <Compile Include="Model\Members\Symbol.cs" />
-        <Compile Include="Model\Members\Text.cs" />
-        <Compile Include="Model\Members\Word.cs" />
-        <Compile Include="Parser\Parser.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="TextProcessing\TextProcessing.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\TextModel\TextModel.csproj">
+        <Project>{0f9ade8d-35cd-4f5e-8381-9f5c1cc77b3a}</Project>
+        <Name>TextModel</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
