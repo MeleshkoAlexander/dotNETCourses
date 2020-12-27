@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiCompany", "TaxiCompany\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiCompanyConsole", "TaxiCompanyConsole\TaxiCompanyConsole.csproj", "{EF95D316-5D8D-4C20-A42F-0B59372AC9AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextModel", "TextModel\TextModel.csproj", "{0F9ADE8D-35CD-4F5E-8381-9F5C1CC77B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing", "TextProcessing\TextProcessing.csproj", "{6D86A5DD-1ED0-412D-8757-28DB344EE286}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{EF95D316-5D8D-4C20-A42F-0B59372AC9AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF95D316-5D8D-4C20-A42F-0B59372AC9AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF95D316-5D8D-4C20-A42F-0B59372AC9AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F9ADE8D-35CD-4F5E-8381-9F5C1CC77B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F9ADE8D-35CD-4F5E-8381-9F5C1CC77B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F9ADE8D-35CD-4F5E-8381-9F5C1CC77B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F9ADE8D-35CD-4F5E-8381-9F5C1CC77B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D86A5DD-1ED0-412D-8757-28DB344EE286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D86A5DD-1ED0-412D-8757-28DB344EE286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D86A5DD-1ED0-412D-8757-28DB344EE286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D86A5DD-1ED0-412D-8757-28DB344EE286}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
