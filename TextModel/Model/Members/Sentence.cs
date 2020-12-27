@@ -18,11 +18,6 @@ namespace TextModel.Model.Members
             Items.Add(item);
         }
 
-        public IList<ISentenceItem> GetSentenceItems()
-        {
-            return Items;
-        }
-
         public void Dispose()
         {
             Items.Clear();

@@ -109,10 +109,5 @@ namespace TextModel.Parser
         {
             return (Text) (_text as Text)?.Clone();
         }
-
-        public void SaveAsTxt(string path)
-        {
-            _fileService.Save(_text, path);
-        }
     }
 }

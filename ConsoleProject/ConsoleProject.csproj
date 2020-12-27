@@ -40,9 +40,11 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="src\IOC.cs" />
         <Compile Include="src\Program.cs" />
         <Compile Include="TaxiCompany\TaxiCompanyConsole.cs" />
         <Compile Include="TaxiCompany\UI.cs" />
+        <Compile Include="TextModelConsole\PorcessingConsole.cs" />
         <Compile Include="TextModelConsole\UI.cs" />
     </ItemGroup>
     <ItemGroup>

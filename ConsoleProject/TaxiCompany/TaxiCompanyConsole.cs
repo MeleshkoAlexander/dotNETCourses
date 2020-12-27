@@ -18,13 +18,13 @@ namespace ConsoleProject.TaxiCompany
 
         public void Create()
         {
-            var car = new Car { Name = Ui.OutputMessage("Name"),
-                Consumption = Convert.ToDouble(Ui.OutputMessage("Consumption")),
-                Cost = Convert.ToDouble(Ui.OutputMessage("Cost")),
-                Year = Convert.ToInt32(Ui.OutputMessage("Year")),
-                StateNumber =Ui.OutputMessage("State number"),
-                Vin = Ui.OutputMessage("Vin number"),
-                MaxSpeed = Convert.ToDouble(Ui.OutputMessage("Max Speed"))
+            var car = new Car { Name = IOC.OutputMessage("Name"),
+                Consumption = Convert.ToDouble(IOC.OutputMessage("Consumption")),
+                Cost = Convert.ToDouble(IOC.OutputMessage("Cost")),
+                Year = Convert.ToInt32(IOC.OutputMessage("Year")),
+                StateNumber =IOC.OutputMessage("State number"),
+                Vin = IOC.OutputMessage("Vin number"),
+                MaxSpeed = Convert.ToDouble(IOC.OutputMessage("Max Speed"))
             };
             _taxiCarCompany.Add(car);
             _taxiCarCompany.Save();
@@ -41,14 +41,14 @@ namespace ConsoleProject.TaxiCompany
 
         private static void Show<TAutoType>(TAutoType car) where TAutoType : IAuto
         {
-            Ui.InputMessage($"Name: {car.Name}");
-            Ui.InputMessage($"Year: {car.Year}");
-            Ui.InputMessage($"Cost: {car.Cost}");
-            Ui.InputMessage($"State number: {car.StateNumber}");
-            Ui.InputMessage($"VIN number: {car.Vin}");
-            Ui.InputMessage($"Max Speed: {car.MaxSpeed}");
-            Ui.InputMessage($"Consumption: {car.Consumption}");
-            Ui.InputMessage(null);
+            IOC.InputMessage($"Name: {car.Name}");
+            IOC.InputMessage($"Year: {car.Year}");
+            IOC.InputMessage($"Cost: {car.Cost}");
+            IOC.InputMessage($"State number: {car.StateNumber}");
+            IOC.InputMessage($"VIN number: {car.Vin}");
+            IOC.InputMessage($"Max Speed: {car.MaxSpeed}");
+            IOC.InputMessage($"Consumption: {car.Consumption}");
+            IOC.InputMessage(null);
         }
 
         public void Sort()
@@ -58,7 +58,7 @@ namespace ConsoleProject.TaxiCompany
 
         public void CompanyCost()
         {
-             Ui.InputMessage(TaxiCompanyEconomic.GetCompanyCost(_carList).ToString());
+             IOC.InputMessage(TaxiCompanyEconomic.GetCompanyCost(_carList).ToString());
         }
 
         public void SpeedSelection(double minLimit,double maxLimit)
