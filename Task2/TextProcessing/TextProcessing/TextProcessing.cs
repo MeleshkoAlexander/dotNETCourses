@@ -20,8 +20,8 @@ namespace TextProcessing.TextProcessing
         public IEnumerable<IWord> FindInQuestion(IText text, int length)
         {
             var words = new List<Word>();
-            foreach (var item in text.Sentences
-                .Where(sentence => sentence.Items[sentence.Items.Count - 1].Chars == "?")
+            foreach (var item in text.Sentences.
+                Where(sentence => sentence.Items[sentence.Items.Count - 1].Chars == "?")
                 .SelectMany(sentence => sentence.Items))
             {
                 if(item.GetType()!=typeof(Word)) continue;
