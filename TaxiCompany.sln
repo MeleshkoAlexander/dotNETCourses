@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextModel", "TextModel\Text
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing", "TextProcessing\TextProcessing.csproj", "{6D86A5DD-1ED0-412D-8757-28DB344EE286}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task1", "Task1", "{DCFB1C6B-F3BF-4E0F-ADDC-7EC0B231F108}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task2", "Task2", "{A51A9F2E-F483-45C5-88F9-B281D9F47801}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,10 @@ Global
 		{6D86A5DD-1ED0-412D-8757-28DB344EE286}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D86A5DD-1ED0-412D-8757-28DB344EE286}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D86A5DD-1ED0-412D-8757-28DB344EE286}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E81C203B-019B-41AF-BF85-B4D766FB9342} = {DCFB1C6B-F3BF-4E0F-ADDC-7EC0B231F108}
+		{0F9ADE8D-35CD-4F5E-8381-9F5C1CC77B3A} = {A51A9F2E-F483-45C5-88F9-B281D9F47801}
+		{6D86A5DD-1ED0-412D-8757-28DB344EE286} = {A51A9F2E-F483-45C5-88F9-B281D9F47801}
 	EndGlobalSection
 EndGlobal
