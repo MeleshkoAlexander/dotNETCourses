@@ -1,5 +1,7 @@
 using System;
 using AutomationStation.Interfaces;
+using AutomationStation.Requests;
+using AutomationStation.Responds;
 
 namespace AutomationStation
 {
@@ -7,25 +9,24 @@ namespace AutomationStation
     {
         public PhoneNumber Number { get; }
         public Port Port { get; }
-        public event EventHandler<Requests.IncomingRequest> IncomingRequest;
-        public event EventHandler<Requests.OutgoingRequest> OutgoingRequest;
-        public void OnOutgoingRequest()
+        public Requests.Request ServerIncomingRequest;
+
+        public void Call(PhoneNumber target)
         {
-            throw new NotImplementedException();
-        }
-        public void OnIncomingRequest(object sender, Requests.IncomingRequest request)
-        {
-            IncomingRequest?.Invoke(sender,request);
+            if (Port.State == PortState.Free)
+            {
+                Port.OnOutgoingRequest(this,target);
+            }
         }
 
         public void Answer()
         {
-            throw new NotImplementedException();
+            Port.NewCallRespond(this,new Respond(){Request = ServerIncomingRequest, State=RespondState.Accept});
         }
 
         public void Drop()
         {
-            throw new NotImplementedException();
+            Port.NewCallRespond(this,new Respond(){Request = ServerIncomingRequest, State=RespondState.Drop});
         }
 
         public Terminal(PhoneNumber number, Port port)

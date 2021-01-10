@@ -1,4 +1,5 @@
 using System;
+using AutomationStation.Responds;
 
 namespace AutomationStation.Interfaces
 {
@@ -6,10 +7,7 @@ namespace AutomationStation.Interfaces
     {
         PhoneNumber Number { get; }
         Port Port { get; }
-        event EventHandler<Requests.IncomingRequest> IncomingRequest;
-        event EventHandler<Requests.OutgoingRequest> OutgoingRequest; 
-        void OnOutgoingRequest();
-        void OnIncomingRequest(object sender,Requests.IncomingRequest request);
+        void Call(PhoneNumber target);
         void Answer();
         void Drop();
     }
