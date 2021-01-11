@@ -7,7 +7,6 @@ namespace AutomationStation.Interfaces
         PortState State { get; set; }
         Station Station { get; }
         Terminal Terminal { get; }
-        event EventHandler<Requests.IncomingRequest> IncomingRequest;
         event EventHandler<Requests.OutgoingRequest> OutgoingRequest;
         event EventHandler<Responds.Respond> CallRespond;
     }

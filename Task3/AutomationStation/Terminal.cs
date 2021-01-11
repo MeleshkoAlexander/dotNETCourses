@@ -9,7 +9,13 @@ namespace AutomationStation
     {
         public PhoneNumber Number { get; }
         public Port Port { get; }
-        public Requests.Request ServerIncomingRequest;
+        public Requests.Request CurrentRequest;
+        public event EventHandler<IncomingRequest> IncomingRequest;
+        public void OnIncomingRequest(object sender, Requests.IncomingRequest request)
+        {
+            IncomingRequest?.Invoke(sender, request);
+            CurrentRequest = request;
+        }
 
         public void Call(PhoneNumber target)
         {
@@ -21,12 +27,12 @@ namespace AutomationStation
 
         public void Answer()
         {
-            Port.NewCallRespond(this,new Respond(){Request = ServerIncomingRequest, State=RespondState.Accept});
+            Port.NewCallRespond(this,new Respond(){Request = CurrentRequest, State=RespondState.Accept});
         }
 
         public void Drop()
         {
-            Port.NewCallRespond(this,new Respond(){Request = ServerIncomingRequest, State=RespondState.Drop});
+            Port.NewCallRespond(this,new Respond(){Request = CurrentRequest, State=RespondState.Drop});
         }
 
         public Terminal(PhoneNumber number, Port port)

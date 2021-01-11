@@ -1,3 +1,5 @@
+using AutomationStation.Requests;
+
 namespace AutomationStation.Responds
 {
     public class Respond
