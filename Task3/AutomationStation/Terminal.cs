@@ -8,17 +8,11 @@ namespace AutomationStation
     public class Terminal: ITerminal
     {
         public PhoneNumber Number { get; }
-        public Port Port { get; }
-        public Requests.Request CurrentRequest;
-        public event EventHandler<IncomingRequest> IncomingRequest;
-        public void OnIncomingRequest(object sender, Requests.IncomingRequest request)
-        {
-            IncomingRequest?.Invoke(sender, request);
-            CurrentRequest = request;
-        }
+        public Port Port { get; private set; }
 
         public void Call(PhoneNumber target)
         {
+            if (this.Port == null) throw new NullReferenceException("Your terminal has not connected to port");
             if (Port.State == PortState.Free)
             {
                 Port.OnOutgoingRequest(this,target);
@@ -27,18 +21,31 @@ namespace AutomationStation
 
         public void Answer()
         {
-            Port.NewCallRespond(this,new Respond(){Request = CurrentRequest, State=RespondState.Accept});
+            if (this.Port == null) throw new NullReferenceException("Your terminal has not connected to port");
+            Port.OnCallRespond(this,new Respond(){Request = Port.CurrentRequest, State=RespondState.Accept});
         }
 
         public void Drop()
         {
-            Port.NewCallRespond(this,new Respond(){Request = CurrentRequest, State=RespondState.Drop});
+            if (this.Port == null) throw new NullReferenceException("Your terminal has not connected to port");
+            Port.OnCallRespond(this,new Respond(){Request = Port.CurrentRequest, State=RespondState.Decline});
         }
 
-        public Terminal(PhoneNumber number, Port port)
+        public void Plug(Port port)
+        {
+            this.Port = port;
+            this.Port.Plug(this);
+        }
+
+        public void UnPlug()
+        {
+            this.Port.UnPlug();
+            this.Port = null;
+        }
+
+        public Terminal(PhoneNumber number)
         {
             this.Number = number;
-            this.Port = port;
         }
     }
 }

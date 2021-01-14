@@ -9,31 +9,59 @@ namespace AutomationStation
     public class Port : IPort
     {
         public PortState State { get; set; }
-        public Station Station { get; }
-        public Terminal Terminal { get; }
+        public Terminal Terminal { get; private set; }
+        public Requests.Request CurrentRequest;
 
-        public Port(Station station, Terminal terminal)
+
+        public event EventHandler<IncomingRequest> IncomingRequest;
+
+        private void OnIncomingRequest(object sender, Requests.IncomingRequest request)
         {
-            this.Station = station;
-            this.Terminal = terminal;
+            IncomingRequest?.Invoke(sender, request);
+            CurrentRequest = request;
         }
-        
+
+        public void NewIncomingRequest(PhoneNumber source)
+        {
+            OnIncomingRequest(this, new IncomingRequest() {Source = source});
+        }
+
         public event EventHandler<OutgoingRequest> OutgoingRequest;
-        public event EventHandler<Respond> CallRespond;
 
         public void OnOutgoingRequest(object sender, PhoneNumber target)
         {
             OutgoingRequest?.Invoke(sender, new Requests.OutgoingRequest() {Source = Terminal.Number, Target = target});
         }
-        
-        public void NewIncomingRequest(PhoneNumber source)
+
+        public event EventHandler<StationRespond> StationRespond;
+
+        private void OnStationRespond(object sender, StationRespond respond)
         {
-            Terminal.OnIncomingRequest(this, new IncomingRequest() {Source = source});
+            StationRespond?.Invoke(sender, respond);
         }
 
-        public void NewCallRespond(object sender, Respond respond)
+        public void NewStationRespond(StationRespond respond)
+        {
+            OnStationRespond(this, respond);
+        }
+
+        public event EventHandler<Respond> CallRespond;
+
+        public void OnCallRespond(object sender, Respond respond)
         {
             CallRespond?.Invoke(sender, respond);
+        }
+
+        public void Plug(Terminal terminal)
+        {
+            this.Terminal = terminal;
+            State = PortState.Free;
+        }
+
+        public void UnPlug()
+        {
+            State = PortState.Disabled;
+            this.Terminal = null;
         }
     }
 }
