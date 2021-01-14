@@ -43,6 +43,7 @@ namespace AutomationStation
                         port.State = PortState.Busy;
                         port.NewIncomingRequest(request.Source);
                         port.CallRespond += ((sender, respond) => GetRespond((Port) sender, respond));
+                        port.CallRespond -= ((sender, respond) => GetRespond((Port) sender, respond));
                         return;
                     default:
                         throw new ArgumentOutOfRangeException();

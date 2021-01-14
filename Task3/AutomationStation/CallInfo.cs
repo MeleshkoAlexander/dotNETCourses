@@ -4,6 +4,7 @@ namespace AutomationStation
 {
     public class CallInfo
     {
+        public CallState State { get; set; }
         public PhoneNumber Source { get; }
         public PhoneNumber Target { get; }
         public DateTime Started { get; }
