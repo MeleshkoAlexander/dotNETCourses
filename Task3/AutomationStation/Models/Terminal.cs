@@ -1,9 +1,8 @@
 using System;
 using AutomationStation.Interfaces;
-using AutomationStation.Requests;
 using AutomationStation.Responds;
 
-namespace AutomationStation
+namespace AutomationStation.Models
 {
     public class Terminal: ITerminal
     {

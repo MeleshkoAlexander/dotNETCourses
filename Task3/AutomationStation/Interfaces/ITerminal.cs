@@ -1,4 +1,5 @@
 using System;
+using AutomationStation.Models;
 using AutomationStation.Responds;
 
 namespace AutomationStation.Interfaces

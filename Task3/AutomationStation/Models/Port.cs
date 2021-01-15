@@ -1,10 +1,9 @@
 using System;
-using System.Security.Policy;
 using AutomationStation.Interfaces;
 using AutomationStation.Requests;
 using AutomationStation.Responds;
 
-namespace AutomationStation
+namespace AutomationStation.Models
 {
     public class Port : IPort
     {
@@ -51,7 +50,12 @@ namespace AutomationStation
         {
             CallRespond?.Invoke(sender, respond);
         }
+        public event EventHandler CallEnd;
 
+        public void OnEndCall(object sender)
+        {
+            CallEnd?.Invoke(sender,new EventArgs());
+        }
         public void Plug(Terminal terminal)
         {
             this.Terminal = terminal;

@@ -1,4 +1,4 @@
-namespace AutomationStation
+namespace AutomationStation.Billing
 {
     public enum CallState
     {

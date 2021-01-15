@@ -1,4 +1,4 @@
-namespace AutomationStation
+namespace AutomationStation.Models
 {
     public class PhoneNumber
     {
