@@ -43,6 +43,7 @@
         <Compile Include="Billing\CallInfo.cs" />
         <Compile Include="Billing\CallState.cs" />
         <Compile Include="Exception\NumberException.cs" />
+        <Compile Include="Exception\NumberNullException.cs" />
         <Compile Include="Exception\PortNullException.cs" />
         <Compile Include="Interfaces\IPort.cs" />
         <Compile Include="Interfaces\IShoulClearEvents.cs" />
