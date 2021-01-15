@@ -10,7 +10,7 @@ namespace AutomationStation.Billing
         public PhoneNumber Number { get; private set; }
         private readonly List<CallInfo> _callInfoCollection;
         private readonly string _path;
-        private double _monthPayment;
+        private double _payment;
 
         public BillingSubscriber(string path,PhoneNumber number)
         {
@@ -44,12 +44,12 @@ namespace AutomationStation.Billing
 
         private void CalculatePayment()
         {
-            _monthPayment = _callInfoCollection.Select(info => info.Cost).Sum();
+            _payment = _callInfoCollection.Select(info => info.Cost).Sum();
         }
 
         public double GetPayment()
         {
-            return _monthPayment;
+            return _payment;
         }
 
         public List<CallInfo> GetStats()

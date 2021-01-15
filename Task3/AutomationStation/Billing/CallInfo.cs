@@ -13,13 +13,13 @@ namespace AutomationStation.Billing
         public DateTime Ended { get; private set; }
         public TimeSpan Duration { get; private set; }
         public double Cost { get; private set; }
-        private double tariff;
+        private double _tariff;
 
         public CallInfo(PhoneNumber source, PhoneNumber taret,double tariff)
         {
             Source = source;
             Target = taret;
-            this.tariff = tariff;
+            _tariff = tariff;
         }
 
         public void Start(DateTime time)
@@ -41,7 +41,7 @@ namespace AutomationStation.Billing
 
         private void CalculateCost()
         {
-            Cost = Duration.Minutes * tariff;
+            Cost = Duration.Minutes * _tariff;
         }
     }
 }

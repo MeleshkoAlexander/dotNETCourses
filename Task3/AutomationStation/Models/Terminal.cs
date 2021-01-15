@@ -1,4 +1,5 @@
 using System;
+using AutomationStation.Exception;
 using AutomationStation.Interfaces;
 using AutomationStation.Responds;
 
@@ -11,7 +12,7 @@ namespace AutomationStation.Models
 
         public void Call(PhoneNumber target)
         {
-            if (this.Port == null) throw new NullReferenceException("Your terminal has not connected to port");
+            if (this.Port == null) throw new PortNullException();
             if (Port.State == PortState.Free)
             {
                 Port.OnOutgoingRequest(this,target);
@@ -20,13 +21,13 @@ namespace AutomationStation.Models
 
         public void Answer()
         {
-            if (this.Port == null) throw new NullReferenceException("Your terminal has not connected to port");
+            if (this.Port == null) throw new PortNullException();
             Port.OnCallRespond(this,new Respond(){Request = Port.CurrentRequest, State=RespondState.Accept});
         }
 
         public void Drop()
         {
-            if (this.Port == null) throw new NullReferenceException("Your terminal has not connected to port");
+            if (this.Port == null) throw new PortNullException();
             Port.OnCallRespond(this,new Respond(){Request = Port.CurrentRequest, State=RespondState.Decline});
         }
 
