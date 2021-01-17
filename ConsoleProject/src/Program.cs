@@ -1,5 +1,9 @@
 ﻿using System;
-using ConsoleProject.TextModelConsole;
+using System.Collections.Generic;
+using AutomationStation.Billing;
+using AutomationStation.Models;
+using AutomationStation.Store;
+using ConsoleProject.TaxiCompany;
 
 namespace ConsoleProject
 {
@@ -9,7 +13,7 @@ namespace ConsoleProject
         {
             try
             {
-                Ui.Menu();
+                MainMenu.ChooseTask();
             }
             catch (Exception e)
             {

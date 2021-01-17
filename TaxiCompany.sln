@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing", "Task2\Tex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationStation", "Task3\AutomationStation\AutomationStation.csproj", "{A644F6E2-5897-482C-8E86-4A4358D37D6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{355E4C95-FF2C-42FD-9177-265B0189DEB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{0F9ADE8D-35CD-4F5E-8381-9F5C1CC77B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D86A5DD-1ED0-412D-8757-28DB344EE286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D86A5DD-1ED0-412D-8757-28DB344EE286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{355E4C95-FF2C-42FD-9177-265B0189DEB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{355E4C95-FF2C-42FD-9177-265B0189DEB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{355E4C95-FF2C-42FD-9177-265B0189DEB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{355E4C95-FF2C-42FD-9177-265B0189DEB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E81C203B-019B-41AF-BF85-B4D766FB9342} = {DCFB1C6B-F3BF-4E0F-ADDC-7EC0B231F108}

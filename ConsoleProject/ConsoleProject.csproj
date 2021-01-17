@@ -9,8 +9,9 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>ConsoleProject</RootNamespace>
         <AssemblyName>ConsoleProject</AssemblyName>
-        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,8 +40,13 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="AutomationStation\StationConsole.cs" />
+        <Compile Include="AutomationStation\StationContractManager.cs" />
+        <Compile Include="AutomationStation\TerminalConsole.cs" />
+        <Compile Include="AutomationStation\UI.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="src\IOC.cs" />
+        <Compile Include="src\MainMenu.cs" />
         <Compile Include="src\Program.cs" />
         <Compile Include="TaxiCompany\TaxiCompanyConsole.cs" />
         <Compile Include="TaxiCompany\UI.cs" />
@@ -62,6 +68,10 @@
       <ProjectReference Include="..\Task2\TextProcessing\TextProcessing.csproj">
         <Project>{6d86a5dd-1ed0-412d-8757-28db344ee286}</Project>
         <Name>TextProcessing</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\Task3\AutomationStation\AutomationStation.csproj">
+        <Project>{a644f6e2-5897-482c-8e86-4a4358d37d6b}</Project>
+        <Name>AutomationStation</Name>
       </ProjectReference>
     </ItemGroup>
     <ItemGroup>

@@ -7,14 +7,16 @@ namespace AutomationStation.Billing
 {
     public class BillingSubscriber
     {
-        public PhoneNumber Number { get; private set; }
+        public PhoneNumber Number { get; }
         private readonly List<CallInfo> _callInfoCollection;
-        private readonly string _path;
+        private string _path;
         private double _payment;
-
+        private readonly IStore _store;
+    
         public BillingSubscriber(string path,PhoneNumber number)
         {
             Number = number;
+            _store = new JsonStore();
             _path = path;
             _callInfoCollection = new List<CallInfo>();
             LoadCallInfoCollection();
@@ -27,14 +29,12 @@ namespace AutomationStation.Billing
 
         private void LoadCallInfoCollection()
         {
-            var store = new XMLStore(_path);
-            store.LoadCollection(_callInfoCollection);
+            _store.LoadCollection(_callInfoCollection,_path);
         }
 
-        private void SaveCallInfoCollection()
+        public void SaveCallInfoCollection()
         {
-            var store = new XMLStore(_path);
-            store.SaveCollection(_callInfoCollection);
+            _store.SaveCollection(_callInfoCollection,_path);
         }
 
         public void AddCallInfo(CallInfo callInfo)

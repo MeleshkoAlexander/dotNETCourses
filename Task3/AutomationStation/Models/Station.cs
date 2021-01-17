@@ -18,7 +18,7 @@ namespace AutomationStation.Models
             _billingStation = billingStation;
         }
         
-        public async void NewRequestWaiting()
+        public void NewRequestWaiting()
         {
             foreach (var port in _portCollection)
             {
