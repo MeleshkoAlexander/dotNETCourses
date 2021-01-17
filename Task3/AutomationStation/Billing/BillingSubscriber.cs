@@ -9,7 +9,7 @@ namespace AutomationStation.Billing
     {
         public PhoneNumber Number { get; }
         private readonly List<CallInfo> _callInfoCollection;
-        private string _path;
+        private readonly string _path;
         private double _payment;
         private readonly IStore _store;
     
@@ -19,23 +19,10 @@ namespace AutomationStation.Billing
             _store = new JsonStore();
             _path = path;
             _callInfoCollection = new List<CallInfo>();
-            LoadCallInfoCollection();
+            CalculatePayment();
         }
-
-        ~BillingSubscriber()
-        {
-            SaveCallInfoCollection();
-        }
-
-        private void LoadCallInfoCollection()
-        {
-            _store.LoadCollection(_callInfoCollection,_path);
-        }
-
-        public void SaveCallInfoCollection()
-        {
-            _store.SaveCollection(_callInfoCollection,_path);
-        }
+        public BillingSubscriber()
+        {}
 
         public void AddCallInfo(CallInfo callInfo)
         {

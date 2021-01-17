@@ -18,12 +18,9 @@ namespace AutomationStation.Models
             _billingStation = billingStation;
         }
         
-        public void NewRequestWaiting()
+        public void NewRequestWaiting(Port port)
         {
-            foreach (var port in _portCollection)
-            {
-                port.OutgoingRequest += HasNewRequestAsynс;
-            }
+            port.OutgoingRequest += HasNewRequestAsynс;
         }
 
         private async void HasNewRequestAsynс(object sender, OutgoingRequest request)

@@ -4,14 +4,14 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{EF95D316-5D8D-4C20-A42F-0B59372AC9AD}</ProjectGuid>
-        <OutputType>Exe</OutputType>
+        <ProjectGuid>{355E4C95-FF2C-42FD-9177-265B0189DEB8}</ProjectGuid>
+        <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>ConsoleProject</RootNamespace>
-        <AssemblyName>ConsoleProject</AssemblyName>
-        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <RootNamespace>UnitTests</RootNamespace>
+        <AssemblyName>UnitTests</AssemblyName>
+        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
-        <LangVersion>9</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,48 +34,30 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="System" />
-        <Reference Include="System.Configuration" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
+        <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+            <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+        </Reference>
+        <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+            <HintPath>..\..\packages\xunit.assert.2.1.0\lib\dotnet\xunit.assert.dll</HintPath>
+        </Reference>
+        <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+            <HintPath>..\..\packages\xunit.extensibility.core.2.1.0\lib\dotnet\xunit.core.dll</HintPath>
+        </Reference>
+        <Reference Include="xunit.execution.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+            <HintPath>..\..\packages\xunit.extensibility.execution.2.1.0\lib\net45\xunit.execution.desktop.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="AutomationStation\StationConsole.cs" />
-        <Compile Include="AutomationStation\StationContractManager.cs" />
-        <Compile Include="AutomationStation\TerminalConsole.cs" />
-        <Compile Include="AutomationStation\UI.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="src\IOC.cs" />
-        <Compile Include="src\MainMenu.cs" />
-        <Compile Include="src\Program.cs" />
-        <Compile Include="TaxiCompany\TaxiCompanyConsole.cs" />
-        <Compile Include="TaxiCompany\UI.cs" />
-        <Compile Include="TextModelConsole\PorcessingConsole.cs" />
-        <Compile Include="TextModelConsole\UI.cs" />
+        <Compile Include="StationTests\Station.cs" />
+        <Compile Include="TerminalTests\CallingTest.cs" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include=".gitignore" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\Task1\TaxiCompany\TaxiCompany.csproj">
-        <Project>{e81c203b-019b-41af-bf85-b4d766fb9342}</Project>
-        <Name>TaxiCompany</Name>
-      </ProjectReference>
-      <ProjectReference Include="..\Task2\TextModel\TextModel.csproj">
-        <Project>{0f9ade8d-35cd-4f5e-8381-9f5c1cc77b3a}</Project>
-        <Name>TextModel</Name>
-      </ProjectReference>
-      <ProjectReference Include="..\Task2\TextProcessing\TextProcessing.csproj">
-        <Project>{6d86a5dd-1ed0-412d-8757-28db344ee286}</Project>
-        <Name>TextProcessing</Name>
-      </ProjectReference>
-      <ProjectReference Include="..\Task3\AutomationStation\AutomationStation.csproj">
-        <Project>{a644f6e2-5897-482c-8e86-4a4358d37d6b}</Project>
-        <Name>AutomationStation</Name>
-      </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="Properties\App.config" />
+      <Folder Include="BillingTests" />
+      <Folder Include="PortTests" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -85,5 +67,4 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-
 </Project>

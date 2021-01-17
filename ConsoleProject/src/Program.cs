@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using AutomationStation.Billing;
-using AutomationStation.Models;
-using AutomationStation.Store;
-using ConsoleProject.TaxiCompany;
 
 namespace ConsoleProject
 {

@@ -46,7 +46,6 @@ namespace AutomationStation.Models
                     port.State = PortState.Busy;
                     port.NewIncomingRequest(request.Source);
                     port.CallRespond += ((sender, respond) => GetRespond((Port) sender, respond));
-                    port.CallRespond -= ((sender, respond) => GetRespond((Port) sender, respond));
                     return;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -91,8 +90,6 @@ namespace AutomationStation.Models
             _currentCall.Start(DateTime.Now);
             sourcePort.CallEnd += ((sender, args) =>  EndCall((Port)sender,targetPort));
             targetPort.CallEnd += ((sender, args) =>  EndCall((Port)sender,sourcePort));
-            sourcePort.CallEnd -= ((sender, args) =>  EndCall((Port)sender,targetPort));
-            targetPort.CallEnd -= ((sender, args) =>  EndCall((Port)sender,sourcePort));
         }
 
         private void EndCall(Port source,Port target)

@@ -12,8 +12,6 @@ namespace AutomationStation.Models
         {
             _phoneNumber = number;
         }
-        private PhoneNumber()
-        {}
 
         public override string ToString()
         {
@@ -37,7 +35,8 @@ namespace AutomationStation.Models
 
         public static bool operator ==(PhoneNumber p1, PhoneNumber p2)
         {
-            return p1 != null && p2!=null && p1.Equals(p2);
+            
+            return p1 is not null && p1.Equals(p2);
         }
 
         public static bool operator !=(PhoneNumber p1, PhoneNumber p2)
