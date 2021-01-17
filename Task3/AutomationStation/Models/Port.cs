@@ -10,6 +10,9 @@ namespace AutomationStation.Models
         public PortState State { get; set; }
         public Terminal Terminal { get; private set; }
         public Requests.Request CurrentRequest;
+        
+        public Port()
+        {}
 
 
         public event EventHandler<IncomingRequest> IncomingRequest;
@@ -46,9 +49,9 @@ namespace AutomationStation.Models
 
         public event EventHandler<Respond> CallRespond;
 
-        public void OnCallRespond(object sender, Respond respond)
+        public void OnCallRespond(Respond respond)
         {
-            CallRespond?.Invoke(sender, respond);
+            CallRespond?.Invoke(this, respond);
         }
         public event EventHandler CallEnd;
 

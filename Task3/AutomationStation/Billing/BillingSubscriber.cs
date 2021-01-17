@@ -7,35 +7,22 @@ namespace AutomationStation.Billing
 {
     public class BillingSubscriber
     {
-        public PhoneNumber Number { get; private set; }
+        public PhoneNumber Number { get; }
         private readonly List<CallInfo> _callInfoCollection;
         private readonly string _path;
-        private double _monthPayment;
-
+        private double _payment;
+        private readonly IStore _store;
+    
         public BillingSubscriber(string path,PhoneNumber number)
         {
             Number = number;
+            _store = new JsonStore();
             _path = path;
             _callInfoCollection = new List<CallInfo>();
-            LoadCallInfoCollection();
+            CalculatePayment();
         }
-
-        ~BillingSubscriber()
-        {
-            SaveCallInfoCollection();
-        }
-
-        private void LoadCallInfoCollection()
-        {
-            var store = new XMLStore(_path);
-            store.LoadCollection(_callInfoCollection);
-        }
-
-        private void SaveCallInfoCollection()
-        {
-            var store = new XMLStore(_path);
-            store.SaveCollection(_callInfoCollection);
-        }
+        public BillingSubscriber()
+        {}
 
         public void AddCallInfo(CallInfo callInfo)
         {
@@ -44,12 +31,12 @@ namespace AutomationStation.Billing
 
         private void CalculatePayment()
         {
-            _monthPayment = _callInfoCollection.Select(info => info.Cost).Sum();
+            _payment = _callInfoCollection.Select(info => info.Cost).Sum();
         }
 
         public double GetPayment()
         {
-            return _monthPayment;
+            return _payment;
         }
 
         public List<CallInfo> GetStats()

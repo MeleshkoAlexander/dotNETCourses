@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutomationStation.Billing;
+using AutomationStation.Exception;
 using AutomationStation.Interfaces;
 using AutomationStation.Requests;
 using AutomationStation.Responds;
@@ -25,7 +26,8 @@ namespace AutomationStation.Models
         }
         private Port GetPortByNumber(PhoneNumber number)
         {
-            return _portCollection.FirstOrDefault(port => port.Terminal.Number == number);
+            if (number == null) throw new NullReferenceException();
+            return _portCollection?.First(port => port.Terminal.Number == number);
         }
         
         public void CreateNewRequest(OutgoingRequest request)
@@ -44,7 +46,6 @@ namespace AutomationStation.Models
                     port.State = PortState.Busy;
                     port.NewIncomingRequest(request.Source);
                     port.CallRespond += ((sender, respond) => GetRespond((Port) sender, respond));
-                    port.CallRespond -= ((sender, respond) => GetRespond((Port) sender, respond));
                     return;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -80,7 +81,7 @@ namespace AutomationStation.Models
         private void CreateCall(PhoneNumber source, PhoneNumber target)
         {
             _currentCall.State = CallState.Accept;
-            if (source == target) throw new Exception("Incorrect Number");
+            if (source == target) throw new IncorrectNumberException("Incorrect Number");
             var sourcePort = GetPortByNumber(source);
             var targetPort = GetPortByNumber(target);
             const string message = "Call Started";
@@ -89,8 +90,6 @@ namespace AutomationStation.Models
             _currentCall.Start(DateTime.Now);
             sourcePort.CallEnd += ((sender, args) =>  EndCall((Port)sender,targetPort));
             targetPort.CallEnd += ((sender, args) =>  EndCall((Port)sender,sourcePort));
-            sourcePort.CallEnd -= ((sender, args) =>  EndCall((Port)sender,targetPort));
-            targetPort.CallEnd -= ((sender, args) =>  EndCall((Port)sender,sourcePort));
         }
 
         private void EndCall(Port source,Port target)

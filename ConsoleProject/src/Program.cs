@@ -1,5 +1,4 @@
 ﻿using System;
-using ConsoleProject.TextModelConsole;
 
 namespace ConsoleProject
 {
@@ -9,7 +8,7 @@ namespace ConsoleProject
         {
             try
             {
-                Ui.Menu();
+                MainMenu.ChooseTask();
             }
             catch (Exception e)
             {
