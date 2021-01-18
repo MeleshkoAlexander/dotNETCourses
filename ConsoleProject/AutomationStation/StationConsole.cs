@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AutomationStation.Billing;
 using AutomationStation.Models;
@@ -9,46 +10,47 @@ namespace ConsoleProject.AutomationStation
 {
     public class StationConsole
     {
-        private List<Port> _portCollection;
-        private BillingStation _billingStation;
-        private List<BillingSubscriber> _subscribersCollection;
         private List<Terminal> _terminals;
+        private List<Port> _ports;
+        private List<BillingSubscriber> _billingSubscribers;
+        private BillingStation _billingStation;
         private Station _station;
-        private StationContractManager _contractManager;
+
+        public StationConsole(List<Terminal> terminals,List<Port> ports, List<BillingSubscriber> billingSubscribers, BillingStation billingStation, Station station)
+        {
+            _terminals = terminals;
+            _ports = ports;
+            _billingSubscribers = billingSubscribers;
+            _billingStation = billingStation;
+            _station = station;
+        }
+
+        public StationContractManager ContractManager { get; }
+        public List<Terminal> Terminals => _terminals;
 
         public StationConsole()
         {
-            _portCollection = new List<Port>();
-            _subscribersCollection = new List<BillingSubscriber>();
             _terminals = new List<Terminal>();
-            _billingStation = new BillingStation(_subscribersCollection);
-            _station = new Station(_portCollection, _billingStation);
-            _contractManager = new StationContractManager(_portCollection, _subscribersCollection);
+            _ports = new List<Port>();
+            _billingSubscribers = new List<BillingSubscriber>();
+            _billingStation = new BillingStation(_billingSubscribers);
+            _station = new Station(_ports,_billingStation);
+            ContractManager = new StationContractManager(_terminals,_ports,_billingSubscribers);
         }
 
-        public void GetNewContract()
+        /*public void Initialize()
         {
-            var terminal = _contractManager.NewContract();
-            terminal.Plug( GetPort());
-            _terminals.Add(terminal);
+            _store.LoadCollection(_terminals,ConfigurationManager.AppSettings.Get("Terminals"));
+            _store.LoadCollection(_ports,ConfigurationManager.AppSettings.Get("Ports"));
+            _store.LoadCollection(_billingSubscribers,ConfigurationManager.AppSettings.Get("Subscribers"));
         }
 
-        public List<Terminal> GetTerminals()
+        ~StationConsole()
         {
-            return _terminals;
-        }
-
-        public Port GetPort()
-        {
-            var port = _contractManager.GetFreePort();
-            _portCollection.Add(port);
-            _station.NewRequestWaiting(port);
-            return port;
-        }
-
-        public BillingSubscriber GetSubscriberByNumber(PhoneNumber number)
-        {
-            return _subscribersCollection?.First(subscriber => subscriber.Number == number);
-        }
+            _store.SaveCollection(_terminals,ConfigurationManager.AppSettings.Get("Terminals"));
+            _store.SaveCollection(_ports,ConfigurationManager.AppSettings.Get("Ports"));
+            _store.SaveCollection(_billingSubscribers,ConfigurationManager.AppSettings.Get("Subscribers"));
+        }*/
+        
     }
 }

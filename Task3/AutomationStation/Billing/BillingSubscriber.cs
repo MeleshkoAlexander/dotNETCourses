@@ -21,6 +21,12 @@ namespace AutomationStation.Billing
             _callInfoCollection = new List<CallInfo>();
             CalculatePayment();
         }
+        public BillingSubscriber(PhoneNumber number)
+        {
+            Number = number;
+            _callInfoCollection = new List<CallInfo>();
+            CalculatePayment();
+        }
         public BillingSubscriber()
         {}
 

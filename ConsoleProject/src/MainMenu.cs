@@ -6,7 +6,7 @@ namespace ConsoleProject
     {
         public static void ChooseTask()
         {
-            var choose = Convert.ToInt32(IOC.OutputMessage("Choose task"));
+            var choose = Convert.ToInt32(IocStatic.OutputMessage("Choose task"));
             switch (choose)
             {
                 case 1:
@@ -21,7 +21,7 @@ namespace ConsoleProject
                 }
                 case 3:
                 {
-                    var stationUi = new AutomationStation.UI();
+                    var stationUi = new AutomationStation.UI(new IoConsole());
                     stationUi.Menu();
                     break;
                 }

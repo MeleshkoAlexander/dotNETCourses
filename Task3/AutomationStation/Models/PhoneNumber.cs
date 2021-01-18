@@ -6,7 +6,6 @@ namespace AutomationStation.Models
     public class PhoneNumber
     {
         private readonly string _phoneNumber;
-        public string Number => _phoneNumber;
 
         public PhoneNumber(string number)
         {

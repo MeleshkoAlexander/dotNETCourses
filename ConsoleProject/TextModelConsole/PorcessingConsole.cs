@@ -32,7 +32,7 @@ namespace ConsoleProject.TextModelConsole
 
                 writing += '\n';
             }
-            IOC.InputMessage(writing);
+            IocStatic.InputMessage(writing);
         }
 
         public void Sort()
@@ -46,12 +46,12 @@ namespace ConsoleProject.TextModelConsole
             var enumerable = list.ToList();
             if (!enumerable.Any())
             {
-                IOC.InputMessage("words of this lenght not exist");
+                IocStatic.InputMessage("words of this lenght not exist");
                 return;
             }
             foreach (var word in enumerable)
             {
-                IOC.InputMessage(word.Chars);
+                IocStatic.InputMessage(word.Chars);
             }
         }
 

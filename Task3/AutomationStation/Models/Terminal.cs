@@ -9,7 +9,6 @@ namespace AutomationStation.Models
     public class Terminal: ITerminal
     {
         public PhoneNumber Number { get; }
-        [JsonIgnore]
         public Port Port { get; private set; }
         public Terminal()
         {}
@@ -30,12 +29,16 @@ namespace AutomationStation.Models
             Port.OnCallRespond(new Respond(){Request = Port.CurrentRequest, State=RespondState.Accept});
         }
 
-        public void Drop()
+        public void Decline()
         {
             if (this.Port == null) throw new PortNullException();
             Port.OnCallRespond(new Respond(){Request = Port.CurrentRequest, State=RespondState.Decline});
         }
 
+        public void EndCall()
+        {
+            Port.OnEndCall(Port);
+        }
         public void Plug(Port port)
         {
             this.Port = port;
