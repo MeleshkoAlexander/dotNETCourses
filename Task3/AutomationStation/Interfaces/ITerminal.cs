@@ -10,6 +10,6 @@ namespace AutomationStation.Interfaces
         Port Port { get; }
         void Call(PhoneNumber target);
         void Answer();
-        void Drop();
+        void Decline();
     }
 }

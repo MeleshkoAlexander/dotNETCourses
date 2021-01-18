@@ -37,18 +37,18 @@ namespace ConsoleProject.TextModelConsole
                     }
                     case 3:
                     {
-                        console.Find(Convert.ToInt32(IOC.OutputMessage("Length:")));
+                        console.Find(Convert.ToInt32(IocStatic.OutputMessage("Length:")));
                         break;
                     }
                     case 4:
                     {
-                        console.Delete(Convert.ToInt32(IOC.OutputMessage("Length")));
+                        console.Delete(Convert.ToInt32(IocStatic.OutputMessage("Length")));
                         break;
                     }
                     case 5:
                     {
-                        console.Replace(Convert.ToInt32(IOC.OutputMessage("Index:")),Convert.ToInt32(IOC.OutputMessage( "Length")),
-                            IOC.OutputMessage("new string:"));
+                        console.Replace(Convert.ToInt32(IocStatic.OutputMessage("Index:")),Convert.ToInt32(IocStatic.OutputMessage( "Length")),
+                            IocStatic.OutputMessage("new string:"));
                         break;
                     }
                     case 6:
@@ -61,13 +61,13 @@ namespace ConsoleProject.TextModelConsole
 
         private static void InputMenu()
         {
-            IOC.InputMessage("1.Show");
-            IOC.InputMessage("2.Sort by letter counts");
-            IOC.InputMessage("3.Word of given length");
-            IOC.InputMessage("4.Delete words");
-            IOC.InputMessage("5.Changes");
-            IOC.InputMessage("6.Save in file");
-            IOC.InputMessage("0.Exit");
+            IocStatic.InputMessage("1.Show");
+            IocStatic.InputMessage("2.Sort by letter counts");
+            IocStatic.InputMessage("3.Word of given length");
+            IocStatic.InputMessage("4.Delete words");
+            IocStatic.InputMessage("5.Changes");
+            IocStatic.InputMessage("6.Save in file");
+            IocStatic.InputMessage("0.Exit");
         }
     }
 }

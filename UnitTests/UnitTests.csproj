@@ -10,8 +10,9 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>UnitTests</RootNamespace>
         <AssemblyName>UnitTests</AssemblyName>
-        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,10 +55,21 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="StationTests\Station.cs" />
         <Compile Include="TerminalTests\CallingTest.cs" />
+        <Compile Include="TerminalTests\TerminalTest.cs" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="BillingTests" />
       <Folder Include="PortTests" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\ConsoleProject\ConsoleProject.csproj">
+        <Project>{ef95d316-5d8d-4c20-a42f-0b59372ac9ad}</Project>
+        <Name>ConsoleProject</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\Task3\AutomationStation\AutomationStation.csproj">
+        <Project>{a644f6e2-5897-482c-8e86-4a4358d37d6b}</Project>
+        <Name>AutomationStation</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

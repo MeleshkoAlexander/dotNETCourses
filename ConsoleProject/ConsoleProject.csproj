@@ -43,9 +43,12 @@
         <Compile Include="AutomationStation\StationConsole.cs" />
         <Compile Include="AutomationStation\StationContractManager.cs" />
         <Compile Include="AutomationStation\TerminalConsole.cs" />
-        <Compile Include="AutomationStation\UI.cs" />
+        <Compile Include="AutomationStation\Ui.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="src\IOC.cs" />
+        <Compile Include="src\Interfaces\IInputOutput.cs" />
+        <Compile Include="src\Interfaces\IUserInterface.cs" />
+        <Compile Include="src\IO\IoConsole.cs" />
+        <Compile Include="src\IO\IOCStatic.cs" />
         <Compile Include="src\MainMenu.cs" />
         <Compile Include="src\Program.cs" />
         <Compile Include="TaxiCompany\TaxiCompanyConsole.cs" />

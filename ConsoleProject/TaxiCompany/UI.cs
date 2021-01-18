@@ -1,4 +1,5 @@
 ﻿using System;
+using ConsoleProject.Interfaces;
 
 namespace ConsoleProject.TaxiCompany
 {
@@ -10,7 +11,7 @@ namespace ConsoleProject.TaxiCompany
             while (true)
             {
                 InputMenu();
-                var choose = Convert.ToInt32(IOC.OutputMessage(">>"));
+                var choose = Convert.ToInt32(IocStatic.OutputMessage(">>"));
                 switch (choose)
                 {
                     default:throw new Exception("This number not exist in this menu");
@@ -36,7 +37,7 @@ namespace ConsoleProject.TaxiCompany
                     }
                     case 5:
                     {
-                        taxiConsole.SpeedSelection(Convert.ToDouble(IOC.OutputMessage("Min: ")),Convert.ToDouble(IOC.OutputMessage("Max: ")));
+                        taxiConsole.SpeedSelection(Convert.ToDouble(IocStatic.OutputMessage("Min: ")),Convert.ToDouble(IocStatic.OutputMessage("Max: ")));
                         break;
                     }
                     case 0:
@@ -51,12 +52,12 @@ namespace ConsoleProject.TaxiCompany
 
         private static void InputMenu()
         {
-            IOC.InputMessage("1.Show");
-            IOC.InputMessage("2.Create ");
-            IOC.InputMessage("3.Company cost");
-            IOC.InputMessage("4.Sort by Consumption");
-            IOC.InputMessage("5.Find by speed");
-            IOC.InputMessage("0. Exit");
+            IocStatic.InputMessage("1.Show");
+            IocStatic.InputMessage("2.Create ");
+            IocStatic.InputMessage("3.Company cost");
+            IocStatic.InputMessage("4.Sort by Consumption");
+            IocStatic.InputMessage("5.Find by speed");
+            IocStatic.InputMessage("0. Exit");
         }
     }
 }

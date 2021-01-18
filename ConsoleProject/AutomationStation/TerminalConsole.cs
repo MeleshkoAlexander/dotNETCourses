@@ -3,100 +3,56 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutomationStation.Billing;
+using AutomationStation.Exception;
 using AutomationStation.Models;
 using AutomationStation.Requests;
 using AutomationStation.Responds;
+using ConsoleProject.Interfaces;
 
 namespace ConsoleProject.AutomationStation
 {
     public class TerminalConsole
     {
         private Terminal _terminal;
-        private BillingSubscriber _subscriber;
 
-        public TerminalConsole(Terminal terminal, BillingSubscriber subscriber)
+        public TerminalConsole(Terminal terminal)
         {
             _terminal = terminal;
-            _subscriber = subscriber;
         }
 
         public void Plug(Port port)
         {
-            if(_terminal.Port!=null) return;
+            if (_terminal.Port != null) return;
             _terminal.Plug(port);
         }
 
         public void UnPlug()
         {
+            if (_terminal.Port == null) return;
             _terminal.UnPlug();
         }
 
-        public string GetNumber()
+        public string Call(PhoneNumber target)
         {
-            return _terminal.Number.Number;
-        }
-
-        public List<CallInfo> GetStats()
-        {
-            return _subscriber.GetStats();
-        }
-        
-
-        public PortState GetState()
-        {
-            return _terminal.Port.State;
-        }
-
-        public bool HavePort()
-        {
-            return _terminal.Port != null;
-        }
-        public void Call(PhoneNumber number)
-        {
-            var target = number;
             _terminal.Call(target);
-            _terminal.Port.StationRespond += (sender, respond) =>
+            var message = "";
+            _terminal.Port.StationRespond += ( (sender, respond) => message = StationRespond(sender, respond));
+            return message;
+        }
+
+        private string StationRespond(object sender, StationRespond respond)
+        {
+            return respond.State switch
             {
-                IOC.InputMessage(respond.State == RespondState.Accept
-                    ? respond.AcceptMessage
-                    : respond.DeclineMessage);
+                RespondState.Accept => respond.AcceptMessage,
+                RespondState.Decline => respond.DeclineMessage,
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
 
-        public void WaitRequest()
+        public void HaveNewRequest(object sender,IncomingRequest request)
         {
-            _terminal.Port.IncomingRequest += RequestWaitAsync;
-        }
-
-        private async void RequestWaitAsync(object sender,IncomingRequest request)
-        {
-            await Task.Run((() => NewRequest(sender, request)));
-        }
-
-        private void NewRequest(object sender,IncomingRequest request)
-        {
-            _terminal.Answer();
-            /*while (true)
-            {
-                IOC.InputMessage("1.Accept");
-                IOC.InputMessage("2.Decline");
-                var choose = Convert.ToInt32(IOC.OutputMessage(">>"));
-                switch (choose)
-                {
-                    case 1:
-                    {
-                        _terminal.Answer();
-                        return;
-                    }
-                    case 2:
-                    {
-                        _terminal.Drop();
-                        return;
-                    }
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }*/
+            
         }
     }
 }
