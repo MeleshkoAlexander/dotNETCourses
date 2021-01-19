@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using AutomationStation.Billing;
 using AutomationStation.Models;
 using AutomationStation.Responds;
@@ -10,65 +12,80 @@ namespace ConsoleProject.AutomationStation
     public class UI : IUserInterface
     {
         private IInputOutput _inputOutput;
-        private StationConsole _stationConsole;
+        private List<Port> _ports;
+        private List<Terminal> _terminals;
+        private List<BillingSubscriber> _subscribers;
+        private ContractManager _manager;
+        private Station _station;
 
         public UI(IInputOutput inputOutput)
         {
             _inputOutput = inputOutput;
-            _stationConsole = new StationConsole();
+            _ports = new List<Port>();
+            _terminals = new List<Terminal>();
+            _subscribers = new List<BillingSubscriber>();
+            _manager = new ContractManager(_ports, _terminals, _subscribers);
+            CreateNewContracts();
+            var billingStation = new BillingStation(_subscribers);
+            _station = new Station(_ports, billingStation);
+            foreach (var port in _ports)
+            {
+                _station.NewRequestWaiting(port);
+            }
         }
 
         public void Menu()
         {
-            var choose = 0;
-            while (true)
+            var random = new Random();
+            MakeCall(_terminals[0], _terminals[1], random);
+            MakeCall(_terminals[0], _terminals[2], random);
+            MakeCall(_terminals[1], _terminals[0], random);
+            MakeCall(_terminals[1], _terminals[2], random);
+            MakeCall(_terminals[2], _terminals[0], random);
+            MakeCall(_terminals[2], _terminals[1], random);
+            foreach (var subscriber in _subscribers)
             {
-                InputMenu();
-                choose =Convert.ToInt32(_inputOutput.OutputMessage(">>"));
-                switch (choose)
-                {
-                    case 0:
-                    {
-                        Environment.Exit(0);
-                        break;
-                    }
-                    case 1:
-                    {
-                        _stationConsole.ContractManager.NewContract();
-                        break;
-                    }
-                    case 2:
-                    {
-                        InputTerminals();
-                        var terminal = _stationConsole.Terminals[Convert.ToInt32(_inputOutput.OutputMessage(">>"))];
-                        TerminalMenu(terminal);
-                        break;
-                    }
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                InputStats(subscriber.GetStats());
             }
         }
 
-        private void TerminalMenu(Terminal terminal)
+        private void InputStats(List<CallInfo> CallStats)
         {
-            
-        }
-
-        private void InputMenu()
-        {
-            _inputOutput.InputMessage("0.Exit");
-            _inputOutput.InputMessage("1.Register new contract");
-            _inputOutput.InputMessage("2.Choose terminal");
-        }
-
-        private void InputTerminals()
-        {
-            var i = 0;
-            foreach (var terminal in _stationConsole.Terminals)
+            foreach (var info in CallStats)
             {
-                _inputOutput.InputMessage($"{i++}.{terminal.Number}");
+                _inputOutput.InputMessage($"{info.Source} call {info.Target}");
+                _inputOutput.InputMessage(
+                    $"Started {info.Started.Day}.{info.Started.Month}.{info.Started.Year} " +
+                    $" {info.Started.Hour}:{info.Started.Minute}:{info.Started.Second}");
+                _inputOutput.InputMessage($"Duration {info.Duration.Hours}:{info.Duration.Minutes}:{info.Duration.Seconds}");
+                _inputOutput.InputMessage($"Cost {info.Cost}$");
             }
+        }
+
+        private void CreateNewContracts()
+        {
+            _manager.NewContract();
+            _manager.NewContract();
+            _manager.NewContract();
+            foreach (var terminal in _terminals)
+            {
+                terminal.Plug(_manager.GetFreePort());
+            }
+        }
+
+        private void MakeCall(Terminal source, Terminal target, Random random)
+        {
+            source.Call(target.Number);
+            target.Port.IncomingRequest += ((sender, request) => _inputOutput.InputMessage(request.Source.ToString()));
+            target.Answer();
+            source.Port.StationRespond += ((sender, respond) => _inputOutput.InputMessage(
+                respond.State == RespondState.Accept
+                    ? respond.AcceptMessage
+                    : respond.DeclineMessage));
+            Thread.Sleep(random.Next(1000,2000));
+            target.EndCall();
+            source.Port.CallEnd += ((sender, args) =>
+                _inputOutput.InputMessage($"{((Port) sender).Terminal.Number} ended the call"));
         }
     }
 }

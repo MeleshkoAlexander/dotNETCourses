@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
+using System.Threading.Tasks;
 using AutomationStation.Billing;
 using AutomationStation.Exception;
 using AutomationStation.Interfaces;
@@ -14,9 +16,9 @@ namespace AutomationStation.Models
         private readonly List<Port> _portCollection;
         private readonly CallInfo _currentCall;
 
-        public RequestHandler(PhoneNumber source,PhoneNumber target,List<Port> portCollection,double tariff)
+        public RequestHandler(PhoneNumber source, PhoneNumber target, List<Port> portCollection, double tariff)
         {
-            _currentCall = new CallInfo(source,target,tariff);
+            _currentCall = new CallInfo(source, target, tariff);
             _portCollection = portCollection;
         }
 
@@ -24,12 +26,13 @@ namespace AutomationStation.Models
         {
             return _currentCall;
         }
+
         private Port GetPortByNumber(PhoneNumber number)
         {
             if (number == null) throw new NullReferenceException();
             return _portCollection?.First(port => port.Terminal.Number == number);
         }
-        
+
         public void CreateNewRequest(OutgoingRequest request)
         {
             var port = GetPortByNumber(request.Target);
@@ -45,7 +48,13 @@ namespace AutomationStation.Models
                 case PortState.Free:
                     port.State = PortState.Busy;
                     port.NewIncomingRequest(request.Source);
-                    port.CallRespond += ((sender, respond) => GetRespond((Port) sender, respond));
+                    Task task = null;
+                    port.CallRespond += (sender, respond) =>
+                    {
+                        task = new Task((() => GetRespond(sender, respond)));
+                        task.Start();
+                    };
+                    task?.Wait();
                     return;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -56,13 +65,13 @@ namespace AutomationStation.Models
             _currentCall.State = CallState.Rejected;
         }
 
-        private void GetRespond(IPort sender, Respond respond)
+        private void GetRespond(object sender, Respond respond)
         {
             if (respond.State == RespondState.Accept)
             {
-                AcceptRespond(sender, respond);
+                AcceptRespond((IPort)sender, respond);
             }
-            else DeclineRespond(sender, respond);
+            else DeclineRespond((IPort)sender, respond);
         }
 
         private void AcceptRespond(IPort sender, Respond respond)
@@ -85,14 +94,21 @@ namespace AutomationStation.Models
             var sourcePort = GetPortByNumber(source);
             var targetPort = GetPortByNumber(target);
             const string message = "Call Started";
-            sourcePort.NewStationRespond(new StationRespond(){Request = sourcePort.CurrentRequest, State = RespondState.Accept, AcceptMessage = message});
-            targetPort.NewStationRespond(new StationRespond(){Request = sourcePort.CurrentRequest,State = RespondState.Accept, AcceptMessage = message});
+            sourcePort.NewStationRespond(new StationRespond()
+                {Request = sourcePort.CurrentRequest, State = RespondState.Accept, AcceptMessage = message});
+            targetPort.NewStationRespond(new StationRespond()
+                {Request = sourcePort.CurrentRequest, State = RespondState.Accept, AcceptMessage = message});
             _currentCall.Start(DateTime.Now);
-            sourcePort.CallEnd += ((sender, args) =>  EndCall((Port)sender,targetPort));
-            targetPort.CallEnd += ((sender, args) =>  EndCall((Port)sender,sourcePort));
+            Task CallEndTask = null;
+            targetPort.CallEnd += ((sender, args) =>
+            {
+                CallEndTask=new Task(()=>EndCall((Port) sender, sourcePort));
+                CallEndTask.Start();
+            });
+            CallEndTask.Wait();
         }
 
-        private void EndCall(Port source,Port target)
+        private void EndCall(Port source, Port target)
         {
             _currentCall.End(DateTime.Now);
             target.OnEndCall(source);

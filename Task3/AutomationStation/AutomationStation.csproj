@@ -51,6 +51,7 @@
           <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
           <Private>True</Private>
         </Reference>
+        <Reference Include="System.Configuration" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
@@ -99,6 +100,7 @@
         <Compile Include="Interfaces\IPort.cs" />
         <Compile Include="Interfaces\IShoulClearEvents.cs" />
         <Compile Include="Interfaces\ITerminal.cs" />
+        <Compile Include="Models\ContractManager.cs" />
         <Compile Include="Models\PhoneNumber.cs" />
         <Compile Include="Models\Port.cs" />
         <Compile Include="Models\PortState.cs" />
@@ -118,6 +120,7 @@
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
+      <None Include="Properties\App.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

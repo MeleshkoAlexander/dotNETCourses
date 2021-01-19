@@ -23,11 +23,14 @@ namespace UnitTests.TerminalTests
             station.NewRequestWaiting(ports[1]);
             terminal1.Call(terminal2.Number);
             terminal2.Port.IncomingRequest += ((sender, request) => Assert.Equal(request.Source,terminal1.Number));
+            terminal2.Port.IncomingRequest -= ((sender, request) => Assert.Equal(request.Source,terminal1.Number));
             terminal2.Answer();
             terminal1.Port.StationRespond += ((sender, respond) => Assert.Equal(respond.AcceptMessage, "Call Started"));
+            terminal1.Port.StationRespond -= ((sender, respond) => Assert.Equal(respond.AcceptMessage, "Call Started"));
             Thread.Sleep(1000);
             terminal1.EndCall();
             terminal2.Port.CallEnd += ((sender, args) => Assert.Equal(sender, terminal1));
+            terminal2.Port.CallEnd -= ((sender, args) => Assert.Equal(sender, terminal1));
             var stats = subscribers[0].GetStats();
             foreach (var callInfo in stats)
             {

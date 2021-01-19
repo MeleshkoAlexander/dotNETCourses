@@ -40,9 +40,6 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="AutomationStation\StationConsole.cs" />
-        <Compile Include="AutomationStation\StationContractManager.cs" />
-        <Compile Include="AutomationStation\TerminalConsole.cs" />
         <Compile Include="AutomationStation\Ui.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="src\Interfaces\IInputOutput.cs" />

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Configuration;
 using System.Threading.Tasks;
 using AutomationStation.Billing;
 using AutomationStation.Interfaces;
@@ -36,7 +38,7 @@ namespace AutomationStation.Models
 
         private double GetTariff()
         {
-            return 0.2;
+            return Convert.ToDouble(ConfigurationManager.AppSettings.Get("Tariff"));
         }
 
         public void ClearEvents()

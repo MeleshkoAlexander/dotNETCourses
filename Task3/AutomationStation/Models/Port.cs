@@ -7,7 +7,7 @@ namespace AutomationStation.Models
 {
     public class Port : IPort
     {
-        public PortState State { get; set; }
+        public PortState State { get; set; } = PortState.Disabled;
         public Terminal Terminal { get; private set; }
         public Requests.Request CurrentRequest;
         
